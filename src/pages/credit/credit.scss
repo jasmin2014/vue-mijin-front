@@ -1,0 +1,556 @@
+.step-btns {
+  margin-top: 80px;
+  text-align: center;
+  .step-btn-next {
+    display: inline-block;
+    font-size: 14px;
+    height: 38px;
+    line-height:38px;
+    border-radius: 19px;
+  }
+  >.step-tips {
+    font-size: 12px;
+    color: red;
+    line-height:30px;
+  }
+  .step-next {
+    >span {
+      font-size: 14px;
+      color: #fe8c00;
+    }
+  }
+}
+
+.credit-content {
+  width: 100%;
+  background: #f7f7f7;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .credit-form {
+    //margin-top: 20px;
+    background: #fff;
+    padding: 0 15px;
+    min-height: 62vh;
+    h3 {
+      height: 60px;
+      line-height: 60px;
+      color: #2a2a2a;
+      font-weight:normal;
+      border-bottom: 1px dashed #ddd;
+      font-size: 16px;
+    }
+    .credit-form-inner {
+      width: 600px;
+      margin: 50px auto 0 auto;
+      padding-bottom: 100px;
+      .credit-form-toptext {
+        p {
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 10px;
+        }
+        margin-bottom: 50px;
+      }
+      .el-form-item {
+        .el-form-item__label {
+          font-size: 16px;
+          color: #000;
+        }
+      }
+      .credit-relation {
+        .el-form-item.relation-name {
+          width: 40%;
+          margin-right: 10px;
+        }
+        .el-form-item.relation-type {
+          width: 28%;
+          margin-right: 10px;
+          .el-form-item__label {
+            width: 130px;
+            text-align: right;
+          }
+        }
+        .el-form-item.relation-phone {
+          width: 32%;
+          .el-form-item__label {
+            width: 150px;
+            text-align: right;
+          }
+        }
+      }
+      .step-btns {
+        .returnback {
+          display: inline-block;
+          margin-left: 20px;
+          color: #ff9427;
+        }
+      }
+      .credit-form-uploads {
+        .credit-form-label {
+          font-size: 14px;
+          color: #000;
+          margin-right: 10px;
+        }
+        .credit-tips {
+          font-size: 14px;
+          color: red;
+        }
+        .credit-uploads {
+          margin-top: 20px;
+        }
+        >section {
+          margin-right: 40px;
+        }
+        >section:last-child {
+          margin: 0;
+        }
+      }
+      .credit-tips {
+        color: red;
+      }
+      .step-btns {
+        margin-top: 50px;
+        .returnback {
+          font-size: 14px;
+        }
+      }
+      .credit-headers {
+        margin-bottom:50px;
+        .credit-headers-label {
+          width: 180px;
+          text-align: right;
+          font-size:16px;
+          line-height:50px;
+          padding-right: 10px;
+        }
+        .credit-headers-tabs {
+          height: 114px;
+          font-size: 16px;
+          >div {
+            line-height: 90px;
+            padding: 0 30px;
+            margin-right: 20px;
+            width: 220px;
+            height:114px;
+            font-size: 20px;
+            text-align: center;
+            background: url("../../assets/imgs/default_bg.png") no-repeat center center;
+          }
+          >div.active {
+            color: #fff;
+            background: url("../../assets/imgs/active_bg.png") no-repeat center center;
+          }
+        }
+      }
+      .credit-idCode {
+        .tips {
+          color: red;
+          font-size: 14px;
+        }
+        .upload-example {
+          margin-left: 45px;
+          .upload-txt {
+            line-height: 40px;
+            font-size: 14px;
+          }
+        }
+        .authority-item {
+          .special-label {
+            width: 150px;
+          }
+          .auth-upload {
+            width: 355px;
+          }
+        }
+      }
+      /*.credit-idCode.credit-idCodes {
+        .el-form-item {
+          width: 50%;
+        }
+      }*/
+      .credit-idCode.credit-certificate {
+        .el-form-item {
+          width: 50%;
+        }
+      }
+      .credit-idCode.credit-sups {
+        .el-form-item {
+          width: 100%;
+        }
+      }
+      .dynamic-password {
+        width: 350px;
+        button.code {
+          line-height: 40px;
+          height: 40px;
+          font-size: 14px;
+          border: 1px solid #ddd;
+          background: #fff;
+          color: #fe8c00;
+          padding: 0 10px;
+          border-radius: 4px;
+        }
+        .code.disabled-code {
+          border:1px solid #cccccc;
+          background: #eee;
+          color: #999;
+        }
+        .code.orange {
+          color: #fe8c00;
+        }
+      }
+      .dynamic-password.dypass-curr {
+        width: 100%;
+        .code {
+          width: 150px;
+          text-align: center;
+        }
+      }
+      .dynamic-tips {
+        padding-left:150px;
+        >p {
+          color: #fd9f42;
+          font-size: 14px;
+        }
+      }
+      .mj-tabs {
+        width: 480px;
+        margin: 0 auto;
+        .mj-tabs-header {
+          width: 240px;
+          margin: 0 auto;
+          .mj-tabs-header-item {
+            width: 100%;
+            border-bottom: 2px solid #ddd;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+          }
+          .mj-tabs-header-item:hover, .mj-tabs-header-item.active-item {
+            color: #fe8c00;
+            border-bottom: 2px solid #fe8c00;
+          }
+        }
+      }
+      .mj-tabs-content {
+        margin-top: 20px;
+        .mj-tabs-code {
+          width: 160px;
+          height: 160px;
+          margin: 0 auto;
+          img {
+            width: 100%;
+          }
+        }
+        .mj-tabs-code-text {
+          font-size: 14px;
+          color: #999;
+          text-align: center;
+          line-height: 30px;
+          span {
+            color: #fe8c00;
+            i {
+              margin-right: 3px;
+            }
+          }
+        }
+        .mj-tabs-content-pane1 {
+          .step-btns {
+            margin-top: 30px;
+          }
+        }
+        .mj-tabs-content-pane2 {
+          .mj-tabs-form-items {
+            width: 380px;
+            margin: 50px auto 0 auto;
+          }
+        }
+      }
+      .credit-branchBank-address{
+        width:440px;
+        .credit-address-ml20 {
+          margin-left: 20px;
+        }
+      }
+    }
+    .credit-form-inner.open-form-inner{
+      width: 820px;
+    }
+    .credit-form-inner.auth-idcard-inner {
+      width: 920px;
+      /*.el-form-item.custom-width {
+        width: 440px;
+      }*/
+    }
+    .credit-form-inner.auth-sup-inner {
+      width: 1080px;
+    }
+    .credit-form-inner.credit-form-base {
+      width: 820px;
+      .el-form-item.credit-custom-select {
+        .el-select {
+          width: 100%;
+        }
+      }
+    }
+    .credit-form-inner.auth-operator-inner {
+      /*.el-form-item.custom-width {
+        width: 480px;
+      }*/
+    }
+    .credit-form-inner.credit-form-apply {
+      width: 480px;
+    }
+    .credit-form-inner.credit-form-guarantee {
+      .el-form {
+        width: 440px;
+        margin: 0 auto;
+      }
+    }
+    .credit-form-inner.loan-form-inner {
+      width: 640px;
+      .loan-form-item {
+        width: 480px;
+        .is-readonly input  {
+          padding: 0 15px;
+          margin: 0;
+          color: #fe8c00;
+          font-size: 20px;
+        }
+      }
+      .loan-check-items {
+        ul,li {
+          list-style: none;
+        }
+        ul {
+          li {
+            display: inline-block;
+            margin-right: 30px;
+            font-size: 14px;
+            label {
+              width: 14px;
+              height: 14px;
+              background: #bcbcbc;
+              display: inline-block;
+              border-radius: 50%;
+              margin-right: 5px;
+              position: relative;
+            }
+          }
+          li.activeItems {
+            label {
+              background: #fff;
+              border: 3px solid #fb8802;
+            }
+          }
+        }
+      }
+    }
+  }
+  .credit-form.operate {
+    h3 {
+      width: 480px;
+      margin: 0 auto;
+      text-align: center;
+      border: none;
+      line-height: 40px;
+      height: 100px;
+      padding-top: 60px;
+      font-size: 26px;
+    }
+  }
+}
+.credit-form-inner .el-form-item .el-form-item__label {
+  text-align: left;
+}
+.width450 {
+  width: 450px;
+}
+.width450_2 {
+  width: 225px;
+}
+.credit-success {
+  text-align: center;
+  background: #fff;
+  padding: 50px 0 140px 0;
+  .credit-success-pic {
+    width: 136px;
+    height: 136px;
+    background: url("../../assets/imgs/auth_success_pic.png") no-repeat center center;
+    margin:  0 auto;
+  }
+  .credit-success-txt {
+    font-size: 24px;
+    margin-top: 30px;
+  }
+  >p{
+    font-size: 14px;
+    margin-top: 10px;
+    span,a {
+      color: #ff9427;
+    }
+  }
+  .credit-txt-mt40 {
+    margin-top: 40px;
+  }
+}
+
+
+.authority-form {
+  h3 {
+    line-height: 40px;
+    font-size: 14px;
+    border-bottom: 1px dashed #ddd;
+    font-weight:normal;
+  }
+}
+.step-agreement {
+  height: 30px;
+  line-height: 30px;
+  margin-top: 20px;
+  >label {
+    width:120px;
+    text-align: right;
+    margin-right: 10px;
+    cursor: pointer;
+    i {
+      width: 15px;
+      height: 15px;
+      margin-bottom: -3px;
+      display: inline-block;
+      background: url("../../assets/imgs/check.png") no-repeat center center;
+    }
+  }
+  >label.credit-agree-label {
+    width: auto;
+  }
+  >label.checked {
+    i {
+      background: url("../../assets/imgs/checked.png") no-repeat center center;
+    }
+  }
+  >div {
+    font-size: 12px;
+    a {
+      color: #fe8c00;
+    }
+  }
+}
+.step-agreement.credit-agree {
+  width: 260px;
+  margin: 0 auto;
+  >label {
+    width: auto;
+  }
+}
+
+.mj-message-box {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  .mj-mask {
+    height: 100%;
+    background: rgba(0,0,0,.4);
+  }
+  .message-content {
+    .pic {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto 0 auto;
+    }
+    .tip-text {
+      font-size: 14px;
+      text-align: center;
+      width: 86%;
+      margin: 15px auto 0 auto;
+    }
+  }
+  .message-content.success {
+    .pic {
+      background: url("../../assets/imgs/auth_success_pic.png") no-repeat center center;
+      background-size: 100%;
+    }
+  }
+  .message-content.fail {
+    .pic {
+      background: url("../../assets/imgs/auth_fail_pic.png") no-repeat center center;
+      background-size: 100%;
+    }
+  }
+  .message-inner {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    margin-left: -150px;
+    background: #fff;
+    padding-bottom: 70px;
+    .message-close {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+    }
+    .message-close:hover {
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      background: rgba(0,0,0,.3);
+      color: #fff;
+    }
+    .message-btns {
+      width: 210px;
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      text-align: center;
+      margin-left: -105px;
+      >div {
+        width: 90px;
+        display: inline-block;
+        line-height: 32px;
+      }
+      .message-btn-ok {
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        border: 1px solid #fe8c00;
+        font-size: 14px;
+        color: #fe8c00;
+      }
+      .message-btn-cancel {
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        border: 1px solid #999;
+        font-size: 14px;
+        color: #999;
+      }
+    }
+  }
+}
+.credit-tab-content {
+  .el-form-item.is-success .is-readonly .el-input__inner{
+    border:none;
+  }
+  .credit-branch-bank {
+    .el-form-item {
+      .el-form-item__content {
+        width: 144px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.el-input.is-disabled .el-input__inner {
+  background:#f2f2f2;
+  color:#606266;
+}

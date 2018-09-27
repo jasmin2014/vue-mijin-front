@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="baidu-site-verification" content="sleBRtxSpA" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>米今—以科技服务金融，为电商小微企业提供专业的信贷、商贷服务</title>
+    <script>
+      window.AESKey = '';
+      // 判断浏览器是否支持placeholder属性
+      function isSupportPlaceholder() {
+        var input = document.createElement('input');
+        return 'placeholder' in input;
+      };
+      (function() {
+        //判断是否是IE浏览器，包括Edge浏览器
+        function IEVersion() {
+          //取得浏览器的userAgent字符串
+          var userAgent = navigator.userAgent;
+          //判断是否IE浏览器
+          var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
+          if (isIE) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            if (fIEVersion < 10 || !isSupportPlaceholder()) {
+              return true;
+            }
+          } else {
+            return false;
+          }
+        }
+        var tpl = [
+          '<div class="browser-tips" style="margin:0 auto;text-align: center;">',
+          '<div style="width:200px;height: 67px; background: url(logo-mj.png) no-repeat center center; margin: 50px auto; text-indent: -9999em;">米今商贷</div>',
+          '<p style="font-size: 20px;color:#000;line-height: 32px;">为了给您提供更优质的网页浏览体验，建议使用IE10及以上版本的浏览器</p>',
+          '<p style="font-size: 20px;color:#000;line-height: 32px;">对“米今商贷”进行访问，请升级或更换其他浏览器</p>',
+          '</div>'
+        ].join('');
+
+        window.onload = function() {
+          if (IEVersion()) {
+            document.write(tpl);
+          }
+        };
+        window.siteName = "";
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <!--  Global  site  tag  (gtag.js)  -  Google  Analytics  -->
+  <script  async  src="https://www.googletagmanager.com/gtag/js?id=UA-122173594-3"></script>
+  <script>
+      window.dataLayer  =  window.dataLayer  ||  [];
+      function  gtag(){dataLayer.push(arguments);}
+      gtag('js',  new  Date());
+
+      gtag('config',  'UA-122173594-3');
+  </script>
+</html>

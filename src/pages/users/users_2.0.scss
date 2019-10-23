@@ -1,0 +1,612 @@
+.users-content {
+  background: #f7f7f7;
+  padding: 20px 0;
+  .main-left {
+    width: 210px;
+    margin-right: 10px;
+    background: #fff;
+  }
+  .main-right {
+    width: 70%;
+    flex: 1;
+    min-height: 62vh;
+  }
+}
+.sprites {
+  background-image: url("../../assets/imgs/user-sprite.png");
+}
+.mr01 {
+  width: 100%;
+  /*height: 170px;*/
+  background: #fff;
+  .mr01-left {
+    padding: 40px 0 40px 20px;
+    .mr01-logo {
+      width: 90px;
+      height: 90px;
+      background-position: 0 0;
+    }
+    .mr01-left-userinfo {
+      padding-left: 20px;
+      h3 {
+        font-size: 30px;
+        font-weight: normal;
+        letter-spacing: 8px;
+        line-height: 50px;
+      }
+      > p {
+        font-size: 14px;
+        margin-top: 8px;
+      }
+    }
+  }
+  .mr01-right {
+    width: 230px;
+    margin: 10px 0;
+    border-left: 1px solid #dadada;
+    > div {
+      width: 50%;
+      padding: 25px 0 0 0;
+      > p {
+        text-align: center;
+        line-height: 40px;
+      }
+      .mr01-right-pic {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto;
+        position: relative;
+        > i {
+          display: block;
+          width: 21px;
+          height: 20px;
+          position: absolute;
+          bottom: 0;
+          right: -5px;
+        }
+        > i.success {
+          background-position: 0 -230px;
+        }
+        > i.no-auth {
+          background-position: -30px -230px;
+        }
+      }
+      .mr01-right-pic.rig-pic1 {
+        background-position: 0 -100px;
+      }
+      .mr01-right-pic.rig-pic2 {
+        background-position: 0 -165px;
+      }
+    }
+  }
+}
+
+.mr02 {
+  width: 100%;
+  background: #fff;
+  margin-top: 20px;
+  .mr02-left {
+    width: 70%;
+    padding: 0 0 40px 20px;
+    .mr02-title {
+      font-size: 16px;
+      color: #a9a9a9;
+    }
+    .mr02-left-userinfo {
+      padding-left: 20px;
+      background: palegoldenrod;
+      .mr02-info {
+        width: 100%;
+        font-size: 14px;
+        float: left;
+        line-height: 38px;
+        > span {
+          float: left;
+          width: 300px;
+        }
+        > p {
+          float: left;
+        }
+      }
+    }
+    .mr02-left-userinfo.xa-amount-txt {
+      .mr02-info {
+        > span {
+          width: 200px;
+        }
+      }
+    }
+  }
+  .mr02-right {
+    flex: 1;
+    //height:100%;
+    position: relative;
+    .mr02-btn {
+      width: 120px;
+      height: 36px;
+      line-height: 34px;
+      position: absolute;
+      top: 50%;
+      margin-top: -18px;
+      color: #ff8c00;
+      border: 1px solid #ff8c00;
+      border-radius: 18px;
+      text-align: center;
+    }
+    .mr02-btn.mr02-btn01 {
+      right: 20px;
+    }
+    .mr02-btn.mr02-btn02 {
+      right: 160px;
+    }
+    > span {
+      margin-left: 20px;
+    }
+  }
+}
+.users-message-confirm.bank-items .confirm-content {
+  /*height: 580px;*/
+  padding-bottom: 30px;
+  .confirm-btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .mj-button {
+    display: inline-block;
+    padding: 0 50px;
+    height: 40px;
+    line-height: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+}
+.users-message-confirm {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  .mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .confirm-content {
+    width: 400px;
+    //height:550px;
+    padding-bottom: 30px;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -275px 0 0 -200px;
+    header {
+      background: #ff8b00;
+      padding: 15px 0;
+      text-align: center;
+      color: #fff;
+      > p {
+        text-align: center;
+      }
+      > p.product-name {
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 20px;
+        margin: 10px 0;
+        border: 1px solid #fff;
+        font-size: 14px;
+      }
+      > div {
+        display: inline-block;
+        padding: 0 15px;
+        margin: 15px auto;
+        text-align: center;
+        line-height: 32px;
+        border: 1px solid #fff;
+        font-size: 14px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+      }
+    }
+    .confirm-inner {
+      padding-top: 10px;
+      > div {
+        width: 70%;
+        margin: 0 auto;
+        line-height: 40px;
+        font-size: 14px;
+        > label {
+          width: 134px;
+          padding-left: 20px;
+          display: inline-block;
+        }
+      }
+      .confirm-btns {
+        margin-top: 10px;
+        > div {
+          padding: 0 30px;
+          line-height: 34px;
+          height: 36px;
+        }
+        > div:first-child {
+          border: 1px solid #ff8b01;
+          border-radius: 20px;
+          color: #ff8b01;
+        }
+      }
+      .gua-cancel {
+        margin-top: 0;
+      }
+      .confirm-btns.credit-records-btn {
+        .gua-cancel {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+/*.users-message-confirm .confirm-content.gua-dialog-info {
+  height:auto;
+  .confirm-inner {
+    padding-bottom: 40px;
+  }
+}*/
+.gua-cancel {
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+  border: 1px solid #999;
+  font-size: 14px;
+  color: #999;
+  margin-top: 20px;
+}
+.credit-records {
+  .users-message-confirm {
+    .confirm-content {
+      width: 350px;
+      height: 450px;
+      .confirm-inner {
+        > div {
+          width: 70%;
+          //display: flex;
+          label {
+            padding-left: 0;
+            width: 100px;
+          }
+        }
+        > div.confirm-btns {
+          width: 34%;
+          display: block;
+          text-align: center;
+          margin-top: 30px;
+          > div {
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+    .confirm-content.gua-dialog-info {
+      height: auto;
+      .confirm-inner {
+        padding-bottom: 40px;
+      }
+    }
+  }
+}
+.bank-icons {
+  background-image: url("../../assets/imgs/bank-icons.jpg");
+}
+.confirm-banks {
+  padding: 20px 30px;
+  height: 84%;
+  overflow-y: auto;
+  .has-gutter {
+    color: #ff8b01;
+    th {
+      padding: 0 0 12px 0;
+      font-size: 15px;
+    }
+  }
+  .banks-icon {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    width: 35px;
+    height: 35px;
+  }
+  .banks-name {
+    display: inline-block;
+    position: relative;
+    top: -10px;
+    left: 10px;
+    line-height: 23px;
+  }
+  tr > td {
+    padding: 5px 0;
+  }
+}
+.users-inner {
+  h3 {
+    color: #a9a9a9;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 40px;
+    margin-top: 5px;
+  }
+}
+.asset-mr01 {
+  > div {
+    width: 48%;
+    background: #fff;
+    padding: 0 20px 20px 20px;
+    > p {
+      line-height: 36px;
+      font-size: 14px;
+      label {
+        display: inline-block;
+      }
+      .cmb {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        background-position: 0 -261px;
+        margin-bottom: -5px;
+        margin-right: 5px;
+      }
+    }
+    > p.bankname {
+      line-height: 30px;
+      margin: 10px 0;
+      font-weight: bold;
+      letter-spacing: 3px;
+      font-size: 16px;
+      > span {
+        font-size: 14px;
+        font-weight: normal;
+        margin-left: 20px;
+        letter-spacing: 0;
+      }
+    }
+  }
+  > div:first-child {
+    margin-right: 20px;
+  }
+  > div:last-child {
+    flex: 1;
+    .amr01-rig-item {
+      > div {
+        width: 44%;
+        text-align: center;
+        font-size: 14px;
+        line-height: 36px;
+      }
+    }
+  }
+}
+.asset-mr02 {
+  background: #fff;
+  margin-top: 20px;
+  padding: 1px 20px 6px 20px;
+  .amr02-search {
+    .amr02-flex {
+      width: 100%;
+      .el-form-item {
+        list-style-type: none;
+        display: -moz-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+      }
+      > div:last-child {
+        .search-btn {
+          width: 80px;
+          height: 35px;
+          background: #ff8b10;
+          color: #fff;
+          text-align: center;
+          line-height: 36px;
+          margin-top: 3px;
+          margin-left: 10px;
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}
+.asset-mr02.no-top-margin {
+  margin-top: 0;
+}
+.asset-mr02.myloan-rig-inner {
+  padding: 20px;
+}
+.el-date-table td.today span,
+.el-date-table td.available div:hover span {
+  color: #ff8b01;
+}
+.el-date-table td.end-date span,
+.el-date-table td.start-date span {
+  background: #ff8b01;
+}
+.el-date-table td.available.end-date:hover span,
+.el-date-table td.available.start-date:hover span {
+  color: #fff;
+}
+.el-date-table td.disabled div {
+  background: #f6f6f6;
+}
+.search-tabs-header {
+  width: 240px;
+  > div {
+    position: relative;
+    width: 50%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #cbcbcb;
+    margin-bottom: 20px;
+  }
+  > div.search-tab-active {
+    border-bottom: 1px solid #ff8b10;
+    color: #ff8b10;
+  }
+}
+.search-tabs-content {
+  .search-tabs-item {
+    .el-table .warning-row {
+      background: #f7f7f7;
+    }
+
+    .el-table .success-row {
+      background: #fff;
+    }
+  }
+}
+
+.mr-recharge {
+  padding: 0 20px 30px 20px;
+  min-height: 70vh;
+  background: #fff;
+  h3 {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    margin-top: 10px;
+  }
+  .mr-recharge-content {
+    width: 460px;
+    margin-left: 100px;
+    margin-top: 10px;
+    .el-form-item {
+      .el-form-item__label {
+        text-align: left;
+      }
+      .el-input-group__append,
+      .el-input-group__prepend {
+        background: none;
+      }
+    }
+    .mr-recharge-ways {
+      > div {
+        box-shadow: 2px 3px 3px #eee;
+        text-align: center;
+        border-radius: 5px;
+        width: 48%;
+        margin-right: 4%;
+      }
+      > div.isDisable {
+        background: #ccc;
+      }
+      > div:last-child {
+        margin-right: 0;
+      }
+      > div.active-item {
+        background-image: -webkit-gradient(
+          linear,
+          right top,
+          left top,
+          from(#fe8c00),
+          to(#fac61e)
+        );
+        background-image: linear-gradient(to left, #fe8c00, #fac61e);
+        filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#fe8c00',endColorStr='#fac61e',gradientType='0');
+        color: #fff;
+      }
+    }
+    .mr-recharge-card {
+      border: 1px solid #dcdfe6;
+      border-radius: 5px;
+      padding: 0 10px;
+    }
+    .mr-recharge-code {
+      .mr-code-input {
+        width: 230px;
+      }
+      .mr-code-get {
+        flex: 1;
+        text-align: center;
+        margin-left: 10px;
+        border: 1px solid #dcdfe6;
+        color: #ff8b01;
+        background: #fff;
+      }
+      .mr-code-get.disabled-code {
+        color: #999;
+      }
+    }
+  }
+}
+
+.mj-pagination {
+  .el-pagination {
+    text-align: right;
+    background: #fff;
+    padding: 10px 20px;
+    .el-pager li.active,
+    .el-pager li:hover {
+      background: #ff8b01;
+      color: #fff;
+    }
+    .el-pager li {
+      min-width: 28px;
+      height: 26px;
+      line-height: 26px;
+    }
+  }
+}
+.search-tabs-item .el-table .el-table__row:nth-child(2n-1) {
+  background: #f5f5f5;
+}
+
+.search-tabs-item .el-table .el-table__row:nth-child(2n) {
+  font-size: 100%;
+}
+.search-tabs-item .operate {
+  span,
+  a {
+    color: #ff8b01;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}
+.mr-recharge-content {
+  .step-btns {
+    margin-top: 20px;
+  }
+  .mr-withdraw-txt {
+    color: #999;
+    line-height: 20px;
+    .all-withdraw {
+      color: #ff8b01;
+    }
+  }
+}
+
+.user-contract {
+  width: 990px;
+  margin: 0 auto;
+  color: #333;
+  h2 {
+    font-size: 30px;
+    text-align: center;
+    line-height: 60px;
+    margin: 20px 0;
+  }
+  h3 {
+    font-size: 24px;
+    text-align: center;
+    line-height: 60px;
+    margin: 20px 0;
+  }
+  p {
+    line-height: 30px;
+    text-indent: 2em;
+  }
+}

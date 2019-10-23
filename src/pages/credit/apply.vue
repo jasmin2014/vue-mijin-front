@@ -29,40 +29,65 @@
 </template>
 
 <script>
-  import MijinHeader from '../../components/header.vue';
-  import MijinFootter from '../../components/footter.vue';
-  import MijinSteps from '../components/steps.vue';
-  import MijinDialog from '../../components/dialogBox.vue';
-  import * as Api from '../api/authority';
-  import * as api from '../api/account';
+import MijinHeader from "../../components/header.vue";
+import MijinFootter from "../../components/footter.vue";
+import MijinSteps from "../components/steps.vue";
+import MijinDialog from "../../components/dialogBox.vue";
+import * as Api from "../api/authority";
+import * as api from "../api/account";
 export default {
-  name: 'creditApplyStep1',
+  name: "creditApplyStep1",
   components: {
     MijinHeader,
     MijinFootter,
     MijinSteps,
     MijinDialog
   },
-  data () {
+  data() {
     return {
       showDialog: false,
       isSuccess: false,
-      messageInfo: '',
+      messageInfo: "",
+      productType: this.$route.query.productType,
       creditForm: {
-        creditApplicationAmount:'',
+        creditApplicationAmount: ""
       },
       creditFormRules: {
-        'creditApplicationAmount': [
-          {required: true, message: '请输入申请授信金额', trigger: 'blur'},
-          {pattern: this.$valid.RegInt, message: '请输入正整数!', trigger: 'blur' },
+        creditApplicationAmount: [
+          { required: true, message: "请输入申请授信金额", trigger: "blur" },
           {
-            trigger: 'blur',
+            pattern: this.$valid.RegInt,
+            message: "请输入正整数!",
+            trigger: "blur"
+          },
+          {
+            trigger: "blur",
             validator: (rule, value, callback) => {
-              if(Number(value) < Number(JSON.parse(this.$getSessionStorage('checkedItems')).creditMinAmount) ) {
-                callback('申请额度不能小于' + JSON.parse(this.$getSessionStorage('checkedItems')).creditMinAmount);
-              }else if(Number(value) > Number(JSON.parse(this.$getSessionStorage('checkedItems')).creditMaxAmount)) {
-                callback('申请额度不能大于' + JSON.parse(this.$getSessionStorage('checkedItems')).creditMaxAmount)
-              }else {
+              if (
+                Number(value) <
+                Number(
+                  JSON.parse(this.$getSessionStorage("checkedItems"))
+                    .creditMinAmount
+                )
+              ) {
+                callback(
+                  "申请额度不能小于" +
+                    JSON.parse(this.$getSessionStorage("checkedItems"))
+                      .creditMinAmount
+                );
+              } else if (
+                Number(value) >
+                Number(
+                  JSON.parse(this.$getSessionStorage("checkedItems"))
+                    .creditMaxAmount
+                )
+              ) {
+                callback(
+                  "申请额度不能大于" +
+                    JSON.parse(this.$getSessionStorage("checkedItems"))
+                      .creditMaxAmount
+                );
+              } else {
                 callback();
               }
             }
@@ -70,67 +95,87 @@ export default {
         ]
       },
       isChecked: false,
-      productName: '',
+      productName: "",
       creditMinAmount: 0,
       creditMaxAmount: 0,
-      amountArea: ''
-    }
+      amountArea: ""
+    };
   },
-  created(){
+  created() {
     this.getAmount();
   },
   methods: {
-    getAmount(){
-      this.productName = this.$getSessionStorage('checkedItems') && this.$getSessionStorage('checkedItems') !=='' ? JSON.parse(this.$getSessionStorage('checkedItems')).productName : '';
-      this.creditMinAmount = this.$getSessionStorage('checkedItems') && this.$getSessionStorage('checkedItems') !=='' ? JSON.parse(this.$getSessionStorage('checkedItems')).creditMinAmount : 0;
-      this.creditMaxAmount = this.$getSessionStorage('checkedItems') && this.$getSessionStorage('checkedItems') !=='' ? JSON.parse(this.$getSessionStorage('checkedItems')).creditMaxAmount : 0;
-      this.amountArea = "额度范围" + this.creditMinAmount + "~" + this.creditMaxAmount;
+    getAmount() {
+      this.productName =
+        this.$getSessionStorage("checkedItems") &&
+        this.$getSessionStorage("checkedItems") !== ""
+          ? JSON.parse(this.$getSessionStorage("checkedItems")).productName
+          : "";
+      this.creditMinAmount =
+        this.$getSessionStorage("checkedItems") &&
+        this.$getSessionStorage("checkedItems") !== ""
+          ? JSON.parse(this.$getSessionStorage("checkedItems")).creditMinAmount
+          : 0;
+      this.creditMaxAmount =
+        this.$getSessionStorage("checkedItems") &&
+        this.$getSessionStorage("checkedItems") !== ""
+          ? JSON.parse(this.$getSessionStorage("checkedItems")).creditMaxAmount
+          : 0;
+      this.amountArea =
+        "额度范围" + this.creditMinAmount + "~" + this.creditMaxAmount;
     },
-    handleBlur(val){
-      this.$setSessionStorage('creditApplicationAmount',this.creditForm.creditApplicationAmount);
+    handleBlur(val) {
+      this.$setSessionStorage(
+        "creditApplicationAmount",
+        this.creditForm.creditApplicationAmount
+      );
     },
-    handleChecked(){
+    handleChecked() {
       this.isChecked = !this.isChecked;
     },
-    handleNextStep(){
-      if(this.isChecked) {
-        this.$refs['applyForm'].validate((valid) => {
+    handleNextStep() {
+      if (this.isChecked) {
+        this.$refs["applyForm"].validate(valid => {
           if (valid) {
-            Api.checkIdCardCredit().then(res => {
-              const _data = res.data;
-              if(_data.code === 200) {
-                if(_data.body){
-                  this.$router.push({name:'authorityOperator'});
-                }else{
-                  this.$router.push({name:'creditAuthority'});
+            if (this.productType === "QYT_LOANS") {
+              this.$router.push({ name: "creditApplyInviteCOde" });
+            } else {
+              Api.checkIdCardCredit().then(res => {
+                const _data = res.data;
+                if (_data.code === 200) {
+                  if (_data.body) {
+                    this.$router.push({ name: "authorityOperator" }); //跳转到运营商认证页面
+                  } else {
+                    this.$router.push({ name: "creditAuthority" });
+                  }
                 }
-              }
-            })
+              });
+            }
           } else {
             return false;
           }
         });
-      }else{
+      } else {
         this.showDialog = true;
         this.isSuccess = false;
-        this.messageInfo = '请先勾选并同意协议！'
+        this.messageInfo = "请先勾选并同意协议！";
       }
     },
-    handleClose(){
+    handleClose() {
       this.showDialog = false;
       this.isSuccess = false;
-      this.messageInfo = ''
+      this.messageInfo = "";
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  lang="scss" scoped>
 .step-content {
-  width:100%;
+  width: 100%;
   background: #eee;
-  padding:20px 0 60px 0;
+  padding: 20px 0 60px 0;
   .step-form {
     background: #fff;
     padding: 60px 0 120px 0;
@@ -140,7 +185,7 @@ export default {
       h3 {
         text-align: center;
         font-size: 30px;
-        font-weight:normal;
+        font-weight: normal;
       }
 
       .step-btns {
@@ -150,14 +195,13 @@ export default {
           display: inline-block;
           font-size: 14px;
         }
-        >.step-tips {
+        > .step-tips {
           font-size: 12px;
           color: red;
-          line-height:30px;
+          line-height: 30px;
         }
       }
     }
   }
 }
-
 </style>

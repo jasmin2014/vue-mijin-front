@@ -10,10 +10,18 @@
     width: 70%;
     flex: 1;
     min-height: 62vh;
+    padding-bottom: 60px;
+    .bindbank-content {
+      background: #fff;
+      padding: 0 30px 10vh 30px;
+      h3 {
+        margin: 0;
+      }
+    }
   }
 }
 .sprites {
-  background-image: url('../../assets/imgs/user-sprite.png');
+  background-image: url("../../assets/imgs/user-sprite.png");
 }
 .mr01 {
   width: 100%;
@@ -63,7 +71,6 @@
           position: absolute;
           bottom: 0;
           right: -5px;
-
         }
         > i.success {
           background-position: 0 -230px;
@@ -110,24 +117,21 @@
         }
       }
     }
+    // .mr02-left-userinfo.xa-amount-txt {
+    //   .mr02-info {
+    //     > span {
+    //       width: 130px;
+    //     }
+    //   }
+    // }
   }
   .mr02-right {
     flex: 1;
     //height:100%;
     position: relative;
-    .mr02-btn {
-      width: 120px;
-      height: 36px;
-      line-height: 34px;
-      position: absolute;
-      top: 50%;
-      margin-top: -18px;
-      color: #ff8c00;
-      border: 1px solid #ff8c00;
-      border-radius: 18px;
-      text-align: center;
-    }
-    .mr02-btn.mr02-btn01 {
+
+    .mr02-btn.mr02-btn01,
+    .mr02-btn.mr02-btn03 {
       right: 20px;
     }
     .mr02-btn.mr02-btn02 {
@@ -138,8 +142,19 @@
     }
   }
 }
-.users-message-confirm.bank-items .confirm-content{
-  /*height: 580px;*/
+.mr02-btn {
+  width: 120px;
+  height: 36px;
+  line-height: 34px;
+  position: absolute;
+  top: 50%;
+  margin-top: -18px;
+  color: #ff8c00;
+  border: 1px solid #ff8c00;
+  border-radius: 18px;
+  text-align: center;
+}
+.users-message-confirm.bank-items .confirm-content {
   padding-bottom: 30px;
   .confirm-btn {
     text-align: center;
@@ -159,32 +174,32 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   z-index: 99;
   .mask {
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, 0.4);
   }
   .confirm-content {
-    width: 400px;
+    width: 430px;
     //height:550px;
     padding-bottom: 30px;
     background: #fff;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin: -275px 0 0 -200px;
+    margin: -295px 0 0 -200px;
     header {
       background: #ff8b00;
       padding: 15px 0;
       text-align: center;
       color: #fff;
-      >p {
+      > p {
         text-align: center;
       }
-      >p.product-name {
+      > p.product-name {
         display: inline-block;
         height: 32px;
         line-height: 32px;
@@ -193,7 +208,7 @@
         border: 1px solid #fff;
         font-size: 14px;
       }
-      >div {
+      > div {
         display: inline-block;
         padding: 0 15px;
         margin: 15px auto;
@@ -208,28 +223,32 @@
     }
     .confirm-inner {
       padding-top: 10px;
-      >div{
+      > div {
         width: 70%;
         margin: 0 auto;
         line-height: 40px;
         font-size: 14px;
-        >label {
+        > label {
           width: 134px;
           padding-left: 20px;
           display: inline-block;
         }
       }
-      .confirm-btns{
+      .confirm-btns {
         margin-top: 10px;
-        >div {
+        > div {
           padding: 0 30px;
           line-height: 34px;
           height: 36px;
         }
-        >div:first-child{
+        > div:first-child {
           border: 1px solid #ff8b01;
           border-radius: 20px;
           color: #ff8b01;
+        }
+        > div.no-btn {
+          border: none;
+          color: #333;
         }
       }
       .gua-cancel {
@@ -256,7 +275,7 @@
   border: 1px solid #999;
   font-size: 14px;
   color: #999;
-  margin-top:20px;
+  margin-top: 20px;
 }
 .credit-records {
   .users-message-confirm {
@@ -264,7 +283,7 @@
       width: 350px;
       height: 450px;
       .confirm-inner {
-        >div {
+        > div {
           width: 70%;
           //display: flex;
           label {
@@ -272,19 +291,19 @@
             width: 100px;
           }
         }
-        >div.confirm-btns {
+        > div.confirm-btns {
           width: 34%;
           display: block;
           text-align: center;
           margin-top: 30px;
-          >div {
+          > div {
             padding: 0 10px;
           }
         }
       }
     }
     .confirm-content.gua-dialog-info {
-      height:auto;
+      height: auto;
       .confirm-inner {
         padding-bottom: 40px;
       }
@@ -295,49 +314,48 @@
   background-image: url("../../assets/imgs/bank-icons.jpg");
 }
 .confirm-banks {
-  padding:20px 30px;
-  height: 84%;
+  padding: 20px 30px;
   overflow-y: auto;
-  .has-gutter{
-    color:#ff8b01;
-    th{
-      padding:0 0 12px 0;
-      font-size:15px;
+  .has-gutter {
+    color: #ff8b01;
+    th {
+      padding: 0 0 12px 0;
+      font-size: 15px;
     }
   }
-  .banks-icon{
-    display:inline-block;
-    position:relative;
-    top:2px;
-    width:35px;
-    height:35px;
+  .banks-icon {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    width: 35px;
+    height: 35px;
   }
-  .banks-name{
-    display:inline-block;
-    position:relative;
-    top:-10px;
-    left:10px;
-    line-height:23px;
+  .banks-name {
+    display: inline-block;
+    position: relative;
+    top: -10px;
+    left: 10px;
+    line-height: 23px;
   }
-  tr>td{
-    padding:5px 0;
+  tr > td {
+    padding: 0;
   }
 }
 .users-inner {
   h3 {
     color: #a9a9a9;
-    font-weight:normal;
+    font-weight: normal;
     font-size: 16px;
     line-height: 40px;
     margin-top: 5px;
   }
 }
 .asset-mr01 {
-  >div {
+  > div {
     width: 48%;
     background: #fff;
     padding: 0 20px 20px 20px;
-    >p {
+    > p {
       line-height: 36px;
       font-size: 14px;
       label {
@@ -353,13 +371,13 @@
         margin-right: 5px;
       }
     }
-    >p.bankname {
+    > p.bankname {
       line-height: 30px;
       margin: 10px 0;
-      font-weight:bold;
+      font-weight: bold;
       letter-spacing: 3px;
       font-size: 16px;
-      >span {
+      > span {
         font-size: 14px;
         font-weight: normal;
         margin-left: 20px;
@@ -367,13 +385,84 @@
       }
     }
   }
-  >div:first-child {
+  div.asset-bb-inner {
+    position: relative;
+    .asset-bankbind {
+      display: flex;
+      > span {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        border-radius: 3px;
+        border: 1px solid #f8b62b;
+        background: #f7f7f7;
+        img {
+          margin: 8px auto;
+          display: block;
+        }
+      }
+      > span.bank-default-icon {
+        background: url("../../assets/imgs/card.png") no-repeat center center
+          #f7f7f7;
+      }
+      > span.bank-cg-default-icon {
+        background: url("../../assets/imgs/band.png") no-repeat center center
+          #f7f7f7;
+      }
+      > div {
+        margin-left: 60px;
+        p.bankname {
+          font-weight: bold;
+        }
+        p.bankinfo {
+          font-size: 14px;
+          margin-top: 6px;
+          label {
+            color: #333;
+          }
+        }
+      }
+      > div.mr20 {
+        margin-right: 50px;
+      }
+      .asset-bb-blank {
+        text-align: left;
+        flex: 1;
+        padding-right: 150px;
+        color: #ff8c00;
+        .active-msg {
+          margin-top: 6px;
+        }
+      }
+      .xian-success {
+        flex: 1;
+        // padding-left: 120px;
+        color: #ff8c00;
+        .asset-bb-blank {
+          // line-height: 30px;
+          text-align: left;
+          margin-bottom: 5px;
+        }
+        .xian-suc-txt {
+          line-height: 24px;
+          font-size: 14px;
+        }
+      }
+      .asset-bb-blank.spec {
+        line-height: 30px;
+      }
+    }
+    .asset-bb-btns {
+      right: 20px;
+    }
+  }
+  > div:first-child {
     margin-right: 20px;
   }
-  >div:last-child{
+  > div:last-child {
     flex: 1;
     .amr01-rig-item {
-      >div {
+      > div {
         width: 44%;
         text-align: center;
         font-size: 14px;
@@ -381,6 +470,9 @@
       }
     }
   }
+}
+.asset-mr01.mt20 {
+  margin-top: 20px;
 }
 .asset-mr02 {
   background: #fff;
@@ -399,7 +491,7 @@
         -webkit-justify-content: space-between;
         justify-content: space-between;
       }
-      >div:last-child {
+      > div:last-child {
         .search-btn {
           width: 80px;
           height: 35px;
@@ -421,48 +513,40 @@
 .asset-mr02.myloan-rig-inner {
   padding: 20px;
 }
-.el-date-table td.today span,.el-date-table td.available div:hover span {
+.el-date-table td.today span,
+.el-date-table td.available div:hover span {
   color: #ff8b01;
 }
-.el-date-table td.end-date span, .el-date-table td.start-date span {
+.el-date-table td.end-date span,
+.el-date-table td.start-date span {
   background: #ff8b01;
 }
-.el-date-table td.available.end-date:hover span, .el-date-table td.available.start-date:hover span {
+.el-date-table td.available.end-date:hover span,
+.el-date-table td.available.start-date:hover span {
   color: #fff;
 }
 .el-date-table td.disabled div {
   background: #f6f6f6;
 }
 .search-tabs-header {
-  width: 240px;
-  >div {
+  width: 320px;
+  > div {
     position: relative;
     width: 50%;
     text-align: center;
-    height:40px;
+    height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #cbcbcb;
     margin-bottom: 20px;
   }
-  >div.search-tab-active {
+  > div.search-tab-active {
     border-bottom: 1px solid #ff8b10;
     color: #ff8b10;
   }
 }
-.search-tabs-content {
-  .search-tabs-item {
-    .el-table .warning-row {
-      background: #f7f7f7;
-    }
-
-    .el-table .success-row {
-      background: #fff;
-    }
-  }
-}
 
 .mr-recharge {
-  padding: 0 20px 30px 20px;
+  padding: 0 20px 80px 20px;
   min-height: 70vh;
   background: #fff;
   h3 {
@@ -472,33 +556,40 @@
     margin-top: 10px;
   }
   .mr-recharge-content {
-    width: 460px;
+    width: 520px;
     margin-left: 100px;
-    margin-top: 10px;
+    margin-top: 50px;
     .el-form-item {
       .el-form-item__label {
-        text-align: left;
+        text-align: right;
       }
-      .el-input-group__append, .el-input-group__prepend {
+      .el-input-group__append,
+      .el-input-group__prepend {
         background: none;
       }
     }
     .mr-recharge-ways {
-      >div {
+      > div {
         box-shadow: 2px 3px 3px #eee;
         text-align: center;
         border-radius: 5px;
         width: 48%;
         margin-right: 4%;
       }
-      >div.isDisable {
+      > div.isDisable {
         background: #ccc;
       }
-      >div:last-child {
+      > div:last-child {
         margin-right: 0;
       }
-      >div.active-item{
-        background-image: -webkit-gradient(linear, right top, left top, from(#fe8c00), to(#fac61e));
+      > div.active-item {
+        background-image: -webkit-gradient(
+          linear,
+          right top,
+          left top,
+          from(#fe8c00),
+          to(#fac61e)
+        );
         background-image: linear-gradient(to left, #fe8c00, #fac61e);
         filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#fe8c00',endColorStr='#fac61e',gradientType='0');
         color: #fff;
@@ -506,14 +597,20 @@
     }
     .mr-recharge-card {
       border: 1px solid #dcdfe6;
+      // color: #999;
       border-radius: 5px;
       padding: 0 10px;
+      .txt-bankname {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
     .mr-recharge-code {
       .mr-code-input {
         width: 230px;
       }
-      .mr-code-get{
+      .mr-code-get {
         flex: 1;
         text-align: center;
         margin-left: 10px;
@@ -533,7 +630,8 @@
     text-align: right;
     background: #fff;
     padding: 10px 20px;
-    .el-pager li.active,.el-pager li:hover {
+    .el-pager li.active,
+    .el-pager li:hover {
       background: #ff8b01;
       color: #fff;
     }
@@ -552,7 +650,8 @@
   font-size: 100%;
 }
 .search-tabs-item .operate {
-  span,a{
+  span,
+  a {
     color: #ff8b01;
     margin-right: 5px;
     cursor: pointer;
@@ -564,7 +663,7 @@
   }
   .mr-withdraw-txt {
     color: #999;
-    line-height:20px;
+    line-height: 20px;
     .all-withdraw {
       color: #ff8b01;
     }
@@ -578,7 +677,7 @@
   h2 {
     font-size: 30px;
     text-align: center;
-    line-height:60px;
+    line-height: 60px;
     margin: 20px 0;
   }
   h3 {

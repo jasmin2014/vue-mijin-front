@@ -1,16 +1,12 @@
-import {
-  MessageBox
-} from 'element-ui'
-import {
-  getPicUrls
-} from '@/api/common'
+import { MessageBox } from "element-ui";
+import { getPicUrls } from "@/api/common";
 /**
  * 深拷贝
  * @param {Object | Array} obj
  * @returns {Object | Array}
  */
-const $deepcopy = function (obj) {
-  return JSON.parse(JSON.stringify(obj))
+const $deepcopy = function(obj) {
+  return JSON.parse(JSON.stringify(obj));
 };
 
 /**
@@ -19,11 +15,11 @@ const $deepcopy = function (obj) {
  * @param {Function} predicate 是否过滤回调
  * @returns {Object}
  */
-const $objFilter = function (obj, predicate) {
+const $objFilter = function(obj, predicate) {
   const result = {};
   for (const key in obj) {
     if (obj.hasOwnProperty(key) && predicate(obj[key])) {
-      result[key] = obj[key]
+      result[key] = obj[key];
     }
   }
   return result;
@@ -34,8 +30,8 @@ const $objFilter = function (obj, predicate) {
  * @param {String} key
  * @param {Object | String | Number | Boolean} value
  */
-const $setLocalStorage = function (key, value) {
-  window.localStorage[key] = JSON.stringify(value)
+const $setLocalStorage = function(key, value) {
+  window.localStorage[key] = JSON.stringify(value);
 };
 
 /**
@@ -43,16 +39,16 @@ const $setLocalStorage = function (key, value) {
  * @param {String} key
  * @returns {Object | String | Number | Boolean}
  */
-const $getLocalStorage = function (key) {
-  return JSON.parse(window.localStorage[key] || null)
+const $getLocalStorage = function(key) {
+  return JSON.parse(window.localStorage[key] || null);
 };
 
 /**
  * 移除LocalStorage中的某项
  * @param {String} key
  */
-const $removeLocalStorage = function (key) {
-  window.localStorage.removeItem(key)
+const $removeLocalStorage = function(key) {
+  window.localStorage.removeItem(key);
 };
 
 /**
@@ -60,8 +56,8 @@ const $removeLocalStorage = function (key) {
  * @param {String} key
  * @param {Object | String | Number | Boolean} value
  */
-const $setSessionStorage = function (key, value) {
-  window.sessionStorage[key] = JSON.stringify(value)
+const $setSessionStorage = function(key, value) {
+  window.sessionStorage[key] = JSON.stringify(value);
 };
 
 /**
@@ -69,16 +65,16 @@ const $setSessionStorage = function (key, value) {
  * @param {String} key
  * @returns {Object | String | Number | Boolean}
  */
-const $getSessionStorage = function (key) {
-  return JSON.parse(window.sessionStorage[key] || null)
+const $getSessionStorage = function(key) {
+  return JSON.parse(window.sessionStorage[key] || null);
 };
 
 /**
  * 移除SessionStorage中的某项
  * @param {String} key
  */
-const $removeSessionStorage = function (key) {
-  window.sessionStorage.removeItem(key)
+const $removeSessionStorage = function(key) {
+  window.sessionStorage.removeItem(key);
 };
 
 /**
@@ -87,12 +83,15 @@ const $removeSessionStorage = function (key) {
  * @param {Number} num2 被加数
  * @returns {Number}
  */
-const $floatPlus = function (num1, num2) {
-  const splits1 = String(num1).split('.');
-  const splits2 = String(num2).split('.');
-  const bits = Math.max(splits1.length > 1 ? splits1[1].length : 0, splits2.length > 1 ? splits2[1].length : 0)
+const $floatPlus = function(num1, num2) {
+  const splits1 = String(num1).split(".");
+  const splits2 = String(num2).split(".");
+  const bits = Math.max(
+    splits1.length > 1 ? splits1[1].length : 0,
+    splits2.length > 1 ? splits2[1].length : 0
+  );
   const scale = Math.pow(10, bits);
-  return ($floatMultiply(num1, scale) + $floatMultiply(num2, scale)) / scale
+  return ($floatMultiply(num1, scale) + $floatMultiply(num2, scale)) / scale;
 };
 
 /**
@@ -101,8 +100,8 @@ const $floatPlus = function (num1, num2) {
  * @param {Number} num2 被减数
  * @returns {Number}
  */
-const $floatMinus = function (num1, num2) {
-  return $floatPlus(num1, -num2)
+const $floatMinus = function(num1, num2) {
+  return $floatPlus(num1, -num2);
 };
 
 /**
@@ -111,11 +110,11 @@ const $floatMinus = function (num1, num2) {
  * @param {Number} multiplier 被乘数
  * @returns {Number}
  */
-const $floatMultiply = function (num, multiplier) {
-  const splits = String(num).split('.');
-  const integer = Number(splits.join(''));
+const $floatMultiply = function(num, multiplier) {
+  const splits = String(num).split(".");
+  const integer = Number(splits.join(""));
   const scale = Math.pow(10, splits.length > 1 ? splits[1].length : 0);
-  return integer * multiplier / scale
+  return (integer * multiplier) / scale;
 };
 
 /**
@@ -124,11 +123,11 @@ const $floatMultiply = function (num, multiplier) {
  * @param {Number} divider 被除数
  * @returns {Number}
  */
-const $floatDivide = function (num, divider) {
-  const splits = String(num).split('.');
-  const integer = Number(splits.join(''));
+const $floatDivide = function(num, divider) {
+  const splits = String(num).split(".");
+  const integer = Number(splits.join(""));
   const scale = Math.pow(10, splits.length > 1 ? splits[1].length : 0);
-  return integer / (scale * divider)
+  return integer / (scale * divider);
 };
 
 /**
@@ -136,11 +135,11 @@ const $floatDivide = function (num, divider) {
  * @param {Number} val
  * @returns {String} 包含%的百分比
  */
-const $floatToPercentage = function (val) {
-  return isNaN(Number(val)) ? val : $floatMultiply(Number(val), 100) + '%';
+const $floatToPercentage = function(val) {
+  return isNaN(Number(val)) ? val : $floatMultiply(Number(val), 100) + "%";
 };
 
-const $floatToNumber = function (val) {
+const $floatToNumber = function(val) {
   return isNaN(Number(val)) ? val : $floatMultiply(Number(val), 100);
 };
 
@@ -149,11 +148,11 @@ const $floatToNumber = function (val) {
  * @param {String} str 身份证号
  * @returns {String}
  */
-const $encodeIdNo = function (str) {
-  if (typeof str === 'string') {
+const $encodeIdNo = function(str) {
+  if (typeof str === "string") {
     return str.replace(/^.{4}(.+).{4}$/, (match, p1, offset, string) => {
-      return string.replace(p1, '**********')
-    })
+      return string.replace(p1, "**********");
+    });
   } else {
     return str;
   }
@@ -166,9 +165,9 @@ const $encodeIdNo = function (str) {
  * @param {String} falseText val为false或0时的文字
  * @returns {String | *} 过滤后文字
  */
-const $filterBoolean = function (val, trueText, falseText) {
+const $filterBoolean = function(val, trueText, falseText) {
   const num = Number(val);
-  return num === 1 ? trueText : (num === 0 ? falseText : val)
+  return num === 1 ? trueText : num === 0 ? falseText : val;
 };
 
 /**
@@ -177,12 +176,12 @@ const $filterBoolean = function (val, trueText, falseText) {
  * @param {Array} array
  * @returns {Number}
  */
-const $arrayToBinary = function (array) {
+const $arrayToBinary = function(array) {
   let binary = 0;
   for (const i of array) {
-    binary += Math.pow(2, i)
+    binary += Math.pow(2, i);
   }
-  return binary
+  return binary;
 };
 
 /**
@@ -191,18 +190,18 @@ const $arrayToBinary = function (array) {
  * @param {Number} binary
  * @returns {Array}
  */
-const $binaryToArray = function (binary) {
+const $binaryToArray = function(binary) {
   const array = [];
   let bit = 0;
   while (binary !== 0) {
-    const flag = binary - (binary >> 1 << 1);
+    const flag = binary - ((binary >> 1) << 1);
     if (flag) {
       array.push(bit);
     }
     binary = binary >> 1;
     bit++;
   }
-  return array
+  return array;
 };
 
 const IS_URL = /^http(s)?:/;
@@ -211,8 +210,8 @@ const IS_URL = /^http(s)?:/;
  * @param {String} str 需要判断的字符串
  * @returns {Boolean}
  */
-const $isUrl = function (str) {
-  return IS_URL.test(str)
+const $isUrl = function(str) {
+  return IS_URL.test(str);
 };
 
 /**
@@ -221,125 +220,232 @@ const $isUrl = function (str) {
  * @param {Number} index 预览从第几张图片开始
  * @returns {*}
  */
-const $preview = function (files, index = 0) {
+const $preview = function(files, index = 0) {
   const h = this.$createElement;
   const message = [];
   for (let i = 0; i < files.length; i++) {
     let ext = files[i].name.substr(files[i].name.lastIndexOf(".") + 1);
     if (ext === "pdf") {
       if (index === i) {
-        message.push(h('object', {
-          attrs: {
-            data: files[i].fileUri,
-            width: "1200px",
-            height: "600px",
-            alt: files[i].name
-          }
-        }))
+        message.push(
+          h(
+            "div",
+            {
+              attrs: {
+                class: "big-img"
+              }
+            },
+            [
+              h("object", {
+                attrs: {
+                  data: files[i].fileUri ? files[i].fileUri : files[i].url,
+                  width: "1200px",
+                  height: "600px",
+                  alt: files[i].name
+                }
+              })
+            ]
+          )
+        );
+
+        // message.push(
+        //   h("object", {
+        //     attrs: {
+        //       data: files[i].fileUri,
+        //       width: "1200px",
+        //       height: "600px",
+        //       alt: files[i].name
+        //     }
+        //   })
+        // );
       } else {
-        message.push(h('object', {
-          attrs: {
-            data: files[i].fileUri,
-            width: "1200px",
-            height: "600px",
-            alt: files[i].name
-          },
-          style: {
-            display: 'none'
-          }
-        }))
+        message.push(
+          h(
+            "div",
+            {
+              attrs: {
+                class: "big-img"
+              },
+              style: {
+                display: "none"
+              }
+            },
+            [
+              h("object", {
+                attrs: {
+                  data: files[i].fileUri ? files[i].fileUri : files[i].url,
+                  width: "1200px",
+                  height: "600px",
+                  alt: files[i].name
+                }
+              })
+            ]
+          )
+        );
+        // message.push(
+        //   h("object", {
+        //     attrs: {
+        //       data: files[i].fileUri,
+        //       width: "1200px",
+        //       height: "600px",
+        //       alt: files[i].name
+        //     },
+        //     style: {
+        //       display: "none"
+        //     }
+        //   })
+        // );
       }
     } else {
       if (index === i) {
-        message.push(h('img', {
-          attrs: {
-            src: files[i].url,
-            alt: files[i].name
-          }
-        }))
+        message.push(
+          h(
+            "div",
+            {
+              attrs: {
+                class: "big-img"
+              }
+            },
+            [
+              h("img", {
+                attrs: {
+                  src: files[i].url,
+                  alt: files[i].name
+                }
+              })
+            ]
+          )
+        );
+        // message.push(
+        //   h("img", {
+        //     attrs: {
+        //       src: files[i].url,
+        //       alt: files[i].name
+        //     }
+        //   })
+        // );
       } else {
-        message.push(h('img', {
-          attrs: {
-            src: files[i].url,
-            alt: files[i].name
-          },
-          style: {
-            display: 'none'
-          }
-        }))
+        message.push(
+          h(
+            "div",
+            {
+              attrs: {
+                class: "big-img"
+              },
+              style: {
+                display: "none"
+              }
+            },
+            [
+              h("img", {
+                attrs: {
+                  src: files[i].url,
+                  alt: files[i].name
+                }
+              })
+            ]
+          )
+        );
+        // message.push(
+        //   h("img", {
+        //     attrs: {
+        //       src: files[i].url,
+        //       alt: files[i].name
+        //     },
+        //     style: {
+        //       display: "none"
+        //     }
+        //   })
+        // );
       }
     }
   }
-  const previewPrev = function () {
+  const previewPrev = function() {
     if (index > 0) {
-      document.querySelectorAll('.message-preview .img-list img')[index].style.display = 'none';
-      document.querySelectorAll('.message-preview .img-list img')[--index].style.display = 'block'
+      document.querySelectorAll(".message-preview .img-list .big-img")[
+        index
+      ].style.display = "none";
+      document.querySelectorAll(".message-preview .img-list .big-img")[
+        --index
+      ].style.display = "block";
     }
   };
-  const previewNext = function () {
+  const previewNext = function() {
     if (index < files.length - 1) {
-      document.querySelectorAll('.message-preview .img-list img')[index].style.display = 'none';
-      document.querySelectorAll('.message-preview .img-list img')[++index].style.display = 'block'
+      document.querySelectorAll(".message-preview .img-list .big-img")[
+        index
+      ].style.display = "none";
+      document.querySelectorAll(".message-preview .img-list .big-img")[
+        ++index
+      ].style.display = "block";
     }
   };
-  const cancelPreview = function () {
-    document.querySelector('.message-preview .el-button.el-button--default.el-button--small').click()
+  const cancelPreview = function() {
+    document
+      .querySelector(
+        ".message-preview .el-button.el-button--default.el-button--small"
+      )
+      .click();
   };
-  const previewClickHandler = function (e) {
+  const previewClickHandler = function(e) {
     e.preventDefault();
     e.stopPropagation();
     if (e.clientX === 0) return;
     const ratio = e.clientX / document.body.clientWidth;
     if (ratio <= 0.4 && index > 0) {
-      previewPrev()
+      previewPrev();
     } else if (ratio >= 0.6 && index < files.length - 1) {
-      previewNext()
+      previewNext();
     } else {
-      cancelPreview()
+      cancelPreview();
     }
   };
-  const cursorHandler = function (e) {
+  const cursorHandler = function(e) {
     window.requestAnimationFrame(() => {
       const ratio = e.clientX / document.body.clientWidth;
       if (ratio <= 0.4 && index !== 0) {
-        this.classList.remove('next');
-        this.classList.remove('zoom-out');
-        this.classList.add('prev')
+        this.classList.remove("next");
+        this.classList.remove("zoom-out");
+        this.classList.add("prev");
       } else if (ratio >= 0.6 && index !== files.length - 1) {
-        this.classList.remove('prev');
-        this.classList.remove('zoom-out');
-        this.classList.add('next')
+        this.classList.remove("prev");
+        this.classList.remove("zoom-out");
+        this.classList.add("next");
       } else {
-        this.classList.remove('prev');
-        this.classList.remove('next');
-        this.classList.add('zoom-out')
+        this.classList.remove("prev");
+        this.classList.remove("next");
+        this.classList.add("zoom-out");
       }
-    })
+    });
   };
-  const bindEvent = function () {
-    if (document.querySelector('.message-preview')) {
-      document.querySelector('.message-preview').onmousemove = cursorHandler;
-      document.querySelector('.message-preview').onclick = previewClickHandler;
+  const bindEvent = function() {
+    if (document.querySelector(".message-preview")) {
+      document.querySelector(".message-preview").onmousemove = cursorHandler;
+      document.querySelector(".message-preview").onclick = previewClickHandler;
     } else {
-      setTimeout(bindEvent, 200)
+      setTimeout(bindEvent, 200);
     }
   };
   setTimeout(bindEvent);
   const defaultOptions = {
-    customClass: 'message-preview',
-    message: h('div', {
-      class: 'img-list'
-    }, message),
+    customClass: "message-preview",
+    message: h(
+      "div",
+      {
+        class: "img-list"
+      },
+      message
+    ),
     dangerouslyUseHTMLString: true,
     showCancelButton: false,
     showConfirmButton: false,
     beforeClose: (action, instance, done) => {
-      document.querySelector('.message-preview').onmousemove = null;
-      document.querySelector('.message-preview').onclick = null;
+      document.querySelector(".message-preview").onmousemove = null;
+      document.querySelector(".message-preview").onclick = null;
       done();
     },
     callback: (action, instance) => {
-      instance.message = '';
+      instance.message = "";
     }
   };
   return MessageBox(defaultOptions);
@@ -351,15 +457,15 @@ window.URL = window.URL || window.webkitURL || window.mozURL;
  * @param {Blob} file
  * @returns {String}
  */
-const $createObjectURL = function (file) {
-  return window.URL.createObjectURL(file)
+const $createObjectURL = function(file) {
+  return window.URL.createObjectURL(file);
 };
 /**
  * 回收blob地址
  * @param {String} url
  */
-const $revokeObjectURL = function (url) {
-  window.URL.revokeObjectURL(url)
+const $revokeObjectURL = function(url) {
+  window.URL.revokeObjectURL(url);
 };
 
 /**
@@ -368,28 +474,30 @@ const $revokeObjectURL = function (url) {
  * @param {} data
  * 直接下载文件
  */
-const $downloadExcel = function (data, filename) {
-  if ('msSaveOrOpenBlob' in navigator) { // Microsoft Edge and Microsoft Internet Explorer 10-11      
+const $downloadExcel = function(data, filename) {
+  if ("msSaveOrOpenBlob" in navigator) {
+    // Microsoft Edge and Microsoft Internet Explorer 10-11
     window.navigator.msSaveOrOpenBlob(data, filename);
-  } else {       // standard code for Google Chrome, Mozilla Firefox etc
+  } else {
+    // standard code for Google Chrome, Mozilla Firefox etc
     const url = $createObjectURL(data);
-    const anchor = document.createElement('a');
+    const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = filename;
     document.body.appendChild(anchor);
     anchor.click();
     $revokeObjectURL(url);
   }
-}
+};
 
 /**
  * DataURL转换为Blob文件
  * @param dataUrl
  * @returns {Blob}
  */
-const $dataURL2Blob = function (dataUrl) {
-  const mime = dataUrl.split(',')[0].match(/:(.*?);/)[1];
-  let url = dataUrl.split(',')[1];
+const $dataURL2Blob = function(dataUrl) {
+  const mime = dataUrl.split(",")[0].match(/:(.*?);/)[1];
+  let url = dataUrl.split(",")[1];
   url = window.atob(url);
   const u8arr = new Uint8Array(url.length);
   for (let i = 0; i < url.length; i++) {
@@ -400,15 +508,16 @@ const $dataURL2Blob = function (dataUrl) {
   });
 };
 
-const keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-const utf8Encode = function (str) {
-  str = str.replace(/\r\n/g, '\n');
-  let utftext = '';
+const keyStr =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+const utf8Encode = function(str) {
+  str = str.replace(/\r\n/g, "\n");
+  let utftext = "";
   for (let n = 0; n < str.length; n++) {
     let c = str.charCodeAt(n);
     if (c < 128) {
       utftext += String.fromCharCode(c);
-    } else if ((c > 127) && (c < 2048)) {
+    } else if (c > 127 && c < 2048) {
       utftext += String.fromCharCode((c >> 6) | 192);
       utftext += String.fromCharCode((c & 63) | 128);
     } else {
@@ -416,12 +525,11 @@ const utf8Encode = function (str) {
       utftext += String.fromCharCode(((c >> 6) & 63) | 128);
       utftext += String.fromCharCode((c & 63) | 128);
     }
-
   }
   return utftext;
 };
-const utf8Decode = function (text) {
-  let string = '',
+const utf8Decode = function(text) {
+  let string = "",
     i = 0,
     c = 0,
     c1 = 0,
@@ -432,22 +540,31 @@ const utf8Decode = function (text) {
     if (c < 128) {
       string += String.fromCharCode(c);
       i++;
-    } else if ((c > 191) && (c < 224)) {
+    } else if (c > 191 && c < 224) {
       c2 = text.charCodeAt(i + 1);
       string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
       i += 2;
     } else {
       c2 = text.charCodeAt(i + 1);
       c3 = text.charCodeAt(i + 2);
-      string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+      string += String.fromCharCode(
+        ((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)
+      );
       i += 3;
     }
   }
   return string;
 };
-const $encode = function (str) {
-  let output = '';
-  let chr1, chr2, chr3, enc1, enc2, enc3, enc4, i = 0;
+const $encode = function(str) {
+  let output = "";
+  let chr1,
+    chr2,
+    chr3,
+    enc1,
+    enc2,
+    enc3,
+    enc4,
+    i = 0;
   str = utf8Encode(str);
   while (i < str.length) {
     chr1 = str.charCodeAt(i++);
@@ -462,16 +579,26 @@ const $encode = function (str) {
     } else if (isNaN(chr3)) {
       enc4 = 64;
     }
-    output = output +
-      keyStr.charAt(enc1) + keyStr.charAt(enc2) +
-      keyStr.charAt(enc3) + keyStr.charAt(enc4);
+    output =
+      output +
+      keyStr.charAt(enc1) +
+      keyStr.charAt(enc2) +
+      keyStr.charAt(enc3) +
+      keyStr.charAt(enc4);
   }
   return output;
 };
-const $decode = function (text) {
-  let output = '';
-  let chr1, chr2, chr3, enc1, enc2, enc3, enc4, i = 0;
-  text = text.replace(/[^A-Za-z0-9\+\/\=]/g, '');
+const $decode = function(text) {
+  let output = "";
+  let chr1,
+    chr2,
+    chr3,
+    enc1,
+    enc2,
+    enc3,
+    enc4,
+    i = 0;
+  text = text.replace(/[^A-Za-z0-9\+\/\=]/g, "");
   while (i < text.length) {
     enc1 = keyStr.indexOf(text.charAt(i++));
     enc2 = keyStr.indexOf(text.charAt(i++));
@@ -498,27 +625,31 @@ const $decode = function (text) {
  * @param {Object} map vue组件name到组件的映射
  * @returns {Array} 路由数组
  */
-const $menuTransformer = function (data, map) {
-  if (typeof data === 'object' && data instanceof Array) {
-    const ret = data.filter(_ => _.structureType !== 'BUTTON' && map[_.name]);
+const $menuTransformer = function(data, map) {
+  if (typeof data === "object" && data instanceof Array) {
+    const ret = data.filter(_ => _.structureType !== "BUTTON" && map[_.name]);
     ret.forEach((_, index) => {
       const children = _.children ? _.children.filter(__ => __.auth) : [];
       ret[index] = {
         path: _.url,
         name: _.name,
         component: map[_.name],
-        redirect: _.auth ? (children.length > 0 && !_.noRedirect ? (`${_.url ? _.url + '/' : ''}${children[0].url}`) : undefined) : '/error/401',
+        redirect: _.auth
+          ? children.length > 0 && !_.noRedirect
+            ? `${_.url ? _.url + "/" : ""}${children[0].url}`
+            : undefined
+          : "/error/401",
         meta: {
           title: _.tname,
-          show: _.auth && _.structureType === 'MENU',
-          action: _.actionCode === undefined ? 'undefined' : _.actionCode
+          show: _.auth && _.structureType === "MENU",
+          action: _.actionCode === undefined ? "undefined" : _.actionCode
         },
         children: _.children ? $menuTransformer(_.children, map) : null
       };
     });
     return ret;
   } else {
-    return []
+    return [];
   }
 };
 
@@ -527,11 +658,14 @@ const $menuTransformer = function (data, map) {
  * @param {Object} data menu接口数据
  * @returns {Object} 对应有权限的name
  */
-const $buttonAuths = function (data) {
+const $buttonAuths = function(data) {
   const ret = {};
-  if (typeof data === 'object' && data instanceof Array) {
+  if (typeof data === "object" && data instanceof Array) {
     $dfs(data, _ => {
-      if (_.auth && (_.structureType === 'BUTTON' || _.structureType === 'PAGE')) {
+      if (
+        _.auth &&
+        (_.structureType === "BUTTON" || _.structureType === "PAGE")
+      ) {
         ret[_.name] = _.actionCode;
       }
     });
@@ -539,19 +673,19 @@ const $buttonAuths = function (data) {
   return ret;
 };
 
-
 /**
  * 深度优先遍历
  * @param {Array} parent 父节点的所有children
  * @param callback 对children的回调函数
  */
-const $dfs = function (parent, callback = null) {
-  parent && parent.forEach((item) => {
-    typeof callback === 'function' && callback(item);
-    if (item.children && item.children.length) {
-      $dfs(item.children, callback)
-    }
-  })
+const $dfs = function(parent, callback = null) {
+  parent &&
+    parent.forEach(item => {
+      typeof callback === "function" && callback(item);
+      if (item.children && item.children.length) {
+        $dfs(item.children, callback);
+      }
+    });
 };
 
 /**
@@ -559,15 +693,16 @@ const $dfs = function (parent, callback = null) {
  * @param {Date} date
  * @return {String} yyyy-MM-dd
  */
-const $dateStringify = function (date) {
+const $dateStringify = function(date) {
   const yyyy = date.getFullYear();
-  const MM = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+  const MM =
+    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
   const dd = date.getDate();
   return `${yyyy}-${MM}-${dd}`;
 };
 
-const $lastNMonth = function (date, n = 1) {
-  return new Date(date.getTime() - 3600 * 1000 * 24 * 30 * n)
+const $lastNMonth = function(date, n = 1) {
+  return new Date(date.getTime() - 3600 * 1000 * 24 * 30 * n);
 };
 
 /**
@@ -575,46 +710,68 @@ const $lastNMonth = function (date, n = 1) {
  * @param {Date} date
  * @return {String} yyyy-MM-01
  */
-const $firstDayOfMonth = function (date) {
+const $firstDayOfMonth = function(date) {
   const yyyy = date.getFullYear();
-  const MM = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
-  const dd = '01';
+  const MM =
+    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+  const dd = "01";
   return `${yyyy}-${MM}-${dd}`;
 };
 
 let $router = null;
-const $saveRouterInstance = function (router) {
+const $saveRouterInstance = function(router) {
   $router = router;
 };
-const $getRouterInstance = function () {
-  return $router
+const $getRouterInstance = function() {
+  return $router;
 };
 
 let $store = null;
-const $saveStoreInstance = function (store) {
+const $saveStoreInstance = function(store) {
   $store = store;
 };
-const $getStoreInstance = function () {
-  return $store
+const $getStoreInstance = function() {
+  return $store;
 };
+const $removeAllStorage = function() {
+  this.$removeLocalStorage("users");
+  this.$removeLocalStorage("token");
+  this.$removeLocalStorage("loginInfo");
+  this.$removeSessionStorage("checkedProducts");
+};
+import { logOut, getPubKey } from "../api/common";
+const $logout = function(onComplete = null) {
+  logOut()
+    .then(() => {
+      this.$removeAllStorage();
+      if (typeof onComplete === "function") {
+        onComplete();
+      }
+    })
+    .catch(() => {
+      this.$removeAllStorage();
+      if (typeof onComplete === "loginInfo") {
+        onComplete();
+      }
+    });
+};
+require("./jsencrypt.js");
 
-import {
-  logOut
-} from '../api/common';
-const $logout = function (onComplete = null) {
-  logOut().then(() => {
-    this.$removeLocalStorage('token');
-    this.$removeLocalStorage('users');
-    if (typeof onComplete === 'function') {
-      onComplete()
+const $getPubKey = (password, onComplete = null) => {
+  getPubKey().then(res => {
+    if (res.data.code == 200 && res.data.body && res.data.body !== "") {
+      const encrypt = new JSEncrypt();
+      encrypt.setPublicKey(
+        "-----BEGIN PUBLIC KEY-----" +
+          res.data.body +
+          "-----END PUBLIC KEY-----"
+      );
+      let encrypted = encrypt.encrypt(password);
+      if (typeof onComplete === "function") {
+        onComplete(encrypted);
+      }
     }
-  }).catch(() => {
-    this.$removeLocalStorage('token');
-    this.$removeLocalStorage('users');
-    if (typeof onComplete === 'function') {
-      onComplete()
-    }
-  })
+  });
 };
 
 export default {
@@ -655,5 +812,7 @@ export default {
   $getRouterInstance,
   $saveStoreInstance,
   $getStoreInstance,
-  $logout
-}
+  $removeAllStorage,
+  $logout,
+  $getPubKey
+};

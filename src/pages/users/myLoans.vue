@@ -121,234 +121,251 @@
 </template>
 
 <script>
-  import MijinHeader from '../../components/header.vue';
-  import MijinFootter from '../../components/footter.vue';
-  import MijinLeftMenu from './components/userLeft.vue';
-  import MijinDialog from '../../components/dialogBox.vue';
-  import * as api from '../api/users';
-  export default {
-    name: 'usersMyLoansPage',
-    components: {
-      MijinHeader,
-      MijinFootter,
-      MijinLeftMenu,
-      MijinDialog
-    },
-    data() {
-      return {
-        showRefuseSignDialog: false,
-        isRefuseSuccess: false,
-        refuseMessageInfo: '',
-        doubleButton: false,
-        okButtonName: '确定',
-        dialogType: '',
-        aIndex: 3,
-        search: {
-          applicationTimeB: '',
-          applicationTimeE: '',
-          pageNumber: 1,
-          pageSize: 10,
-          status: ''
-        },
-        pageTotal: 1,
-        accountLoansDatas: [],
-        contractRow: '',
-        contractDialog: false,
-        contractBtn: false,
-        contractUrl: '',
-        codeInterval: null,
-        validateDialog: false,
-        disabledCode: false,
-        validateCode: false,
-        btnCountDown: '获取短信验证码',
-        contractMobile: JSON.parse(this.$getLocalStorage('loginInfo')).nickName,
-        contractMessageCode: '',
-        currentAppItem: {},
-        disabledOperate: false,
-      }
-    },
-    computed: {
-      appliedTime: {
-        get() {
-          if (this.search.applicationTimeB && this.search.applicationTimeE) {
-            const dateRange = [];
-            dateRange[0] = this.search.applicationTimeB;
-            dateRange[1] = this.search.applicationTimeE;
-            return dateRange
-          } else {
-            return null;
-          }
-        },
-        set(val) {
-          if (val) {
-            this.search.applicationTimeB = val[0];
-            this.search.applicationTimeE = val[1]
-          } else {
-            this.search.applicationTimeB = '';
-            this.search.applicationTimeE = ''
-          }
+import MijinHeader from "../../components/header.vue";
+import MijinFootter from "../../components/footter.vue";
+import MijinLeftMenu from "./components/userLeft.vue";
+import MijinDialog from "../../components/dialogBox.vue";
+import * as api from "../api/users";
+export default {
+  name: "usersMyLoansPage",
+  components: {
+    MijinHeader,
+    MijinFootter,
+    MijinLeftMenu,
+    MijinDialog
+  },
+  data() {
+    return {
+      showRefuseSignDialog: false,
+      isRefuseSuccess: false,
+      refuseMessageInfo: "",
+      doubleButton: false,
+      okButtonName: "确定",
+      dialogType: "",
+      aIndex: 3,
+      search: {
+        applicationTimeB: "",
+        applicationTimeE: "",
+        pageNumber: 1,
+        pageSize: 10,
+        status: ""
+      },
+      pageTotal: 1,
+      accountLoansDatas: [],
+      contractRow: "",
+      contractDialog: false,
+      contractBtn: false,
+      contractUrl: "",
+      codeInterval: null,
+      validateDialog: false,
+      disabledCode: false,
+      validateCode: false,
+      btnCountDown: "获取短信验证码",
+      contractMobile: JSON.parse(this.$getLocalStorage("loginInfo")).nickName,
+      contractMessageCode: "",
+      currentAppItem: {},
+      disabledOperate: false
+    };
+  },
+  computed: {
+    appliedTime: {
+      get() {
+        if (this.search.applicationTimeB && this.search.applicationTimeE) {
+          const dateRange = [];
+          dateRange[0] = this.search.applicationTimeB;
+          dateRange[1] = this.search.applicationTimeE;
+          return dateRange;
+        } else {
+          return null;
+        }
+      },
+      set(val) {
+        if (val) {
+          this.search.applicationTimeB = val[0];
+          this.search.applicationTimeE = val[1];
+        } else {
+          this.search.applicationTimeB = "";
+          this.search.applicationTimeE = "";
         }
       }
-    },
-    created() {
-      this.getLoanApplicationList(1);
-    },
-    methods: {
-      /*handleChangePage(value){
+    }
+  },
+  created() {
+    this.getLoanApplicationList(1);
+  },
+  methods: {
+    /*handleChangePage(value){
         this.getLoanApplicationList(value);
       },*/
-      handleSearchLoansList() {
-        this.getLoanApplicationList(1);
-      },
-      getLoanApplicationList(index) {
-        const _search = this.$objFilter(this.$deepcopy(this.search), _ => _ !== '');
-        _search.pageNumber = index;
-        api.getLoanApplicationList(_search).then(res => {
-          if (res.data.code === 200) {
-            this.accountLoansDatas = res.data.body.list ? res.data.body.list : [];
-            this.pageTotal = res.data.body.totalRecord;
-            this.search.pageNumber = res.data.body.pageNumber;
-          }
-        })
-      },
-      handlePreview(row) {
-        const _params = {
-          applicationId: row.applicationId,
-          status: row.status
-        };
-        api.getDownloadContractPreview(_params).then(res => {
-          if (res.status === 200) {
-            let data = res.data;
-            this.contractRow = row
-            this.dialogType = row.status
-            this.contractDialog = true
-            this.contractUrl = this.$createObjectURL(data);
-          }
-        })
-      },
-      handleCode() {
-        if (this.disabledCode == true) {
-          return false;
+    handleSearchLoansList() {
+      this.getLoanApplicationList(1);
+    },
+    getLoanApplicationList(index) {
+      const _search = this.$objFilter(
+        this.$deepcopy(this.search),
+        _ => _ !== ""
+      );
+      _search.pageNumber = index;
+      api.getLoanApplicationList(_search).then(res => {
+        if (res.data.code === 200) {
+          this.accountLoansDatas = res.data.body.list ? res.data.body.list : [];
+          this.pageTotal = res.data.body.totalRecord;
+          this.search.pageNumber = res.data.body.pageNumber;
         }
-        this.disabledCode = true
-        const applicationId = {
-          'applicationId': this.currentAppItem.applicationId
+      });
+    },
+    handlePreview(row) {
+      const _params = {
+        applicationId: row.applicationId,
+        status: row.status
+      };
+      api.getDownloadContractPreview(_params).then(res => {
+        if (res.status === 200) {
+          let data = res.data;
+          this.contractRow = row;
+          this.dialogType = row.status;
+          this.contractDialog = true;
+          this.contractUrl = this.$createObjectURL(data);
         }
-        api.getContractMessageCode(applicationId).then((res) => {
+      });
+    },
+    handleCode() {
+      if (this.disabledCode == true) {
+        return false;
+      }
+      this.disabledCode = true;
+      const applicationId = {
+        applicationId: this.currentAppItem.applicationId
+      };
+      api.getContractMessageCode(applicationId).then(
+        res => {
           if (res.data.code === 200) {
             this.countDown(60);
           }
-        }, res => {
+        },
+        res => {
           this.disabledCode = true;
-          this.btnCountDown = '稍后再试';
+          this.btnCountDown = "稍后再试";
           setTimeout(() => {
             this.disabledCode = false;
-            this.btnCountDown = '获取短信验证码';
-          }, 30000)
-        })
-      },
-
-      countDown(sec) {
-        if (sec >= 0) {
-          this.disabledCode = true;
-          this.btnCountDown = `剩余${sec}s`;
-          this.codeInterval = setTimeout(() => {
-            this.countDown(--sec);
-          }, 1000)
-        } else {
-          this.disabledCode = false;
-          this.btnCountDown = '获取短信验证码';
-          this.codeInterval = null
+            this.btnCountDown = "获取短信验证码";
+          }, 30000);
         }
-      },
+      );
+    },
 
-      submitContractValidate() {
-        if (this.contractMessageCode == '') {
-          this.validateCode = true
-        } else {
-          api.ValidateContractMessageCode(this.contractMessageCode).then((res) => {
+    countDown(sec) {
+      if (sec >= 0) {
+        this.disabledCode = true;
+        this.btnCountDown = `剩余${sec}s`;
+        this.codeInterval = setTimeout(() => {
+          this.countDown(--sec);
+        }, 1000);
+      } else {
+        this.disabledCode = false;
+        this.btnCountDown = "获取短信验证码";
+        this.codeInterval = null;
+      }
+    },
+
+    submitContractValidate() {
+      if (this.contractMessageCode == "") {
+        this.validateCode = true;
+      } else {
+        api.ValidateContractMessageCode(this.contractMessageCode).then(
+          res => {
             if (res.data.code === 200) {
               this.putLoanApplicationSiging();
             }
-          }, res => {
+          },
+          res => {
             this.$notify.error({
-              title: '错误',
-              message: '验证码错误，请重新填写验证码'
+              title: "错误",
+              message: "验证码错误，请重新填写验证码"
             });
-          })
-        }
-      },
-      closeValidateDialog() {
-        this.validateDialog = false
-        this.disabledCode = false
-        this.disabledOperate = false
-        this.validateCode = false
-        this.contractMessageCode = ''
-        window.clearTimeout(this.codeInterval)
-        this.codeInterval=null
-        this.btnCountDown = '获取短信验证码'
-      },
-      putLoanApplicationSiging() {
-        this.disabledOperate = true
-        api.putLoanApplicationSiging(this.currentAppItem).then(res => {
+          }
+        );
+      }
+    },
+    closeValidateDialog() {
+      this.validateDialog = false;
+      this.disabledCode = false;
+      this.disabledOperate = false;
+      this.validateCode = false;
+      this.contractMessageCode = "";
+      window.clearTimeout(this.codeInterval);
+      this.codeInterval = null;
+      this.btnCountDown = "获取短信验证码";
+    },
+    putLoanApplicationSiging() {
+      this.disabledOperate = true;
+      api.putLoanApplicationSiging(this.currentAppItem).then(
+        res => {
           if (res.data.code === 200) {
             this.$notify({
-              title: '成功',
-              message: '签约成功',
-              type: 'success'
+              title: "成功",
+              message: "签约成功",
+              type: "success"
             });
             this.handleCloseRefuseDialog();
             this.getLoanApplicationList(1);
           } else {
-            this.disabledOperate = false
+            this.disabledOperate = false;
             this.showRefuseSignDialog = true;
             this.isRefuseSuccess = false;
             this.doubleButton = false;
             this.disabledCode = false;
-            this.btnCountDown = '获取短信验证码';
+            this.btnCountDown = "获取短信验证码";
             this.codeInterval = null;
-            this.refuseMessageInfo = res.data.message ? res.data.message : '签约失败，稍后再试';
+            this.refuseMessageInfo = res.data.message
+              ? res.data.message
+              : "签约失败，稍后再试";
           }
-        }, response => {
+        },
+        response => {
           if (response.data.body) {
-            let _msg = '';
+            let _msg = "";
             for (const key in response.data.message) {
-              _msg += response.data.message[key] + ';  ';
+              _msg += response.data.message[key] + ";  ";
             }
             this.refuseMessageInfo = _msg;
           } else {
-            this.disabledOperate = true
-            this.refuseMessageInfo = response.data.message ? response.data.message : '签约失败，稍后再试!';
+            this.disabledOperate = true;
+            this.refuseMessageInfo = response.data.message
+              ? response.data.message
+              : "签约失败，稍后再试!";
           }
           this.showRefuseSignDialog = true;
           this.isRefuseSuccess = false;
           this.doubleButton = false;
-        })
-      },
-      handleContract() {
-        this.validateDialog = true
-        this.dialogType = this.$enum.LOAN_BE_SIGN;
-        this.currentAppItem = {
-          applicationId: this.contractRow.applicationId,
-          status: this.contractRow.status
         }
-      },
-      contractUrlEmpty() {
-        this.contractUrl = ''
-      },
-      handleRefuseSigning(row) {
-        this.dialogType = this.$enum.LOAN_REFUSING_SIGN;
-        this.showRefuseSignDialog = true;
-        this.isRefuseSuccess = false;
-        this.refuseMessageInfo = '拒签是不可恢复操作，是否继续？';
-        this.doubleButton = true;
-        this.currentAppItem = {
-          applicationId: row.applicationId,
-          status: row.status
-        }
-      },
-      putCancelLoanApplicationSiging() {
-        api.putCancelLoanApplicationSiging(this.currentAppItem).then(res => {
+      );
+    },
+    handleContract() {
+      this.validateDialog = true;
+      this.dialogType = this.$enum.LOAN_BE_SIGN;
+      this.currentAppItem = {
+        applicationId: this.contractRow.applicationId,
+        status: this.contractRow.status
+      };
+    },
+    contractUrlEmpty() {
+      this.contractUrl = "";
+    },
+    handleRefuseSigning(row) {
+      this.dialogType = this.$enum.LOAN_REFUSING_SIGN;
+      this.showRefuseSignDialog = true;
+      this.isRefuseSuccess = false;
+      this.refuseMessageInfo = "拒签是不可恢复操作，是否继续？";
+      this.doubleButton = true;
+      this.currentAppItem = {
+        applicationId: row.applicationId,
+        status: row.status
+      };
+    },
+    putCancelLoanApplicationSiging() {
+      api.putCancelLoanApplicationSiging(this.currentAppItem).then(
+        res => {
           if (res.data.code === 200) {
             this.handleCloseRefuseDialog();
             this.getLoanApplicationList(1);
@@ -356,131 +373,135 @@
             this.showRefuseSignDialog = true;
             this.isRefuseSuccess = false;
             this.doubleButton = false;
-            this.refuseMessageInfo = res.data.message ? res.data.message : '操作失败，稍后再试';
+            this.refuseMessageInfo = res.data.message
+              ? res.data.message
+              : "操作失败，稍后再试";
           }
-        }, response => {
+        },
+        response => {
           if (response.data.body) {
-            let _msg = '';
+            let _msg = "";
             for (const key in response.data.body) {
-              _msg += response.data.body[key] + ';  ';
+              _msg += response.data.body[key] + ";  ";
             }
             this.refuseMessageInfo = _msg;
           } else {
-            this.refuseMessageInfo = response.data.message ? response.data.message : '拒绝签约失败,请稍后再试!';
+            this.refuseMessageInfo = response.data.message
+              ? response.data.message
+              : "拒绝签约失败,请稍后再试!";
           }
           this.showRefuseSignDialog = true;
           this.isRefuseSuccess = false;
           this.doubleButton = false;
-        })
-      },
-      handleSuccessRedirect() {
-        if (this.dialogType === 'BE_SIGN') {
-          this.putLoanApplicationSiging()
-        } else if (this.dialogType === 'REFUSING_SIGN') {
-          this.putCancelLoanApplicationSiging();
         }
-      },
-      handleCloseRefuseDialog() {
-        this.showRefuseSignDialog = false;
-        this.isRefuseSuccess = false;
-        this.doubleButton = false;
-        this.refuseMessageInfo = '';
-        this.closeValidateDialog();
-        this.contractRow = '';
-        this.contractDialog = false;
-        this.contractBtn = false;
-      },
-      handleGoDetail(row) {
-        this.$router.push({
-          name: 'usersLoanRecordDetailPage',
-          params: {
-            id: row.applicationId
-          }
-        })
+      );
+    },
+    handleSuccessRedirect() {
+      if (this.dialogType === "BE_SIGN") {
+        this.putLoanApplicationSiging();
+      } else if (this.dialogType === "REFUSING_SIGN") {
+        this.putCancelLoanApplicationSiging();
       }
+    },
+    handleCloseRefuseDialog() {
+      this.showRefuseSignDialog = false;
+      this.isRefuseSuccess = false;
+      this.doubleButton = false;
+      this.refuseMessageInfo = "";
+      this.closeValidateDialog();
+      this.contractRow = "";
+      this.contractDialog = false;
+      this.contractBtn = false;
+    },
+    handleGoDetail(row) {
+      this.$router.push({
+        name: "usersLoanRecordDetailPage",
+        params: {
+          id: row.applicationId
+        }
+      });
     }
   }
-
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" socped>
-  .search-tabs-item .el-table .descending .sort-caret.descending {
-    border-top-color: #ff8b01;
-  }
+.search-tabs-item .el-table .descending .sort-caret.descending {
+  border-top-color: #ff8b01;
+}
 
-  .search-tabs-item .el-table .ascending .sort-caret.ascending {
-    border-bottom-color: #ff8b01;
-  }
+.search-tabs-item .el-table .ascending .sort-caret.ascending {
+  border-bottom-color: #ff8b01;
+}
 
-  .signature .mj-message-box {
-    z-index: 3300;
-  }
+.signature .mj-message-box {
+  z-index: 3300;
+}
 
-  .contract-dialog {
-    height: 90%;
-    margin-top: 3%;
-    text-align: center;
-    overflow: hidden;
-    .el-dialog{
-      height:100%;
-      .dialog-img-box {
-        height: 650px;
-        width: 100%;
-        overflow-y: auto;
+.contract-dialog {
+  height: 90%;
+  margin-top: 3%;
+  text-align: center;
+  overflow: hidden;
+  .el-dialog {
+    height: 100%;
+    .dialog-img-box {
+      height: 650px;
+      width: 100%;
+      overflow-y: auto;
+    }
+    .dialog-contract-btn {
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      padding-bottom: 15px;
+      .contract-btn {
+        margin: 10px auto 0 auto;
+        font-size: 16px;
+        width: 120px;
       }
-      .dialog-contract-btn {
-        width: 100%;
-        background: #fff;
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        padding-bottom:15px;
-        .contract-btn {
-          margin: 10px auto 0 auto;
-          font-size: 16px;
-          width: 120px;
-        }
-      }
     }
   }
+}
 
-  .validate-box {
-    width: 90%;
-    margin: 0 auto;
-    font-size: 16px;
-    p {
-      display: inline-block;
-      height: 45px;
-      line-height: 45px;
-      width: 100px;
-      margin: 0 10px 10px 0;
-      text-align: right;
-    }
-    .mr-code-get {
-      border: none;
-      width: 120px;
-      height: 40px;
-      line-height: 40px;
-      background: #fe8c00;
-      border-radius: 4px;
-      color: #fff;
-      font-size: 14px;
-      text-align: center;
-      cursor: pointer;
-      display: inline-block;
-    }
-    .mr-code-get.disabled-code {
-      color: #fff;
-      background: #ddd;
-    }
+.validate-box {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 16px;
+  p {
+    display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    width: 100px;
+    margin: 0 10px 10px 0;
+    text-align: right;
   }
-
-  .validateCode {
-    font-size: 12px;
-    color: #ff8b01;
+  .mr-code-get {
+    border: none;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background: #fe8c00;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
     text-align: center;
-    margin: 10px auto 0 auto;
+    cursor: pointer;
+    display: inline-block;
   }
+  .mr-code-get.disabled-code {
+    color: #fff;
+    background: #ddd;
+  }
+}
 
+.validateCode {
+  font-size: 12px;
+  color: #ff8b01;
+  text-align: center;
+  margin: 10px auto 0 auto;
+}
 </style>

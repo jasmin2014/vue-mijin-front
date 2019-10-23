@@ -31,7 +31,7 @@
                 </section>
                 <p class="flex loan-terms">
                   <span>借款期限:{{loanRecordDTO.repayTerms}}个月</span>
-                  <span>起息日期:{{loanRecordDTO.applicationTime}}</span>
+                  <span>起息日期:{{loanRecordDTO.interestDate}}</span>
                 </p>
                 <div v-if="loanRecordDTO.status !== this.$enum.LOAN_EARLY_REPAYMENT && loanRecordDTO.status !== this.$enum.LOAN_REIMBURSEMENT" class="mj-button orange step-btn-next loan-button cursor" @click="getEarlyRepaymentOrderInfo">提前还款</div>
               </div>
@@ -67,208 +67,228 @@
 </template>
 
 <script>
-  import MijinHeader from '../../components/header.vue';
-  import MijinFootter from '../../components/footter.vue';
-  import MijinLeftMenu from './components/userLeft.vue';
-  import MijinDialog from '../../components/dialogBox.vue';
-  import MijinRepayConfirm from './components/twinceConfirm.vue';
-  import * as api from '../api/users';
-  export default {
-    name: 'usersLoanRecordDetailPage',
-    components: {
-      MijinHeader,
-      MijinFootter,
-      MijinLeftMenu,
-      MijinDialog,
-      MijinRepayConfirm
+import MijinHeader from "../../components/header.vue";
+import MijinFootter from "../../components/footter.vue";
+import MijinLeftMenu from "./components/userLeft.vue";
+import MijinDialog from "../../components/dialogBox.vue";
+import MijinRepayConfirm from "./components/twinceConfirm.vue";
+import * as api from "../api/users";
+export default {
+  name: "usersLoanRecordDetailPage",
+  components: {
+    MijinHeader,
+    MijinFootter,
+    MijinLeftMenu,
+    MijinDialog,
+    MijinRepayConfirm
+  },
+  data() {
+    return {
+      showMessageDialog: false,
+      isSuccess: false,
+      messageInfo: "",
+      showConfirmDialog: false,
+      showConfirmMessageDialog: false,
+      isConfirmSuccess: false,
+      confirmMessageInfo: "",
+      isDirect: false,
+      operateType: "",
+      currentRepayOrderId: "",
+      repayMentOrder: {
+        productName: "",
+        loanApplication: "",
+        interestDate: "",
+        planedRepayDate: "",
+        planedCapAmount: "",
+        planedIntAmount: "",
+        penaltyDays: "",
+        planedTotalPenalty: "",
+        defaultsFee: "",
+        planedTotalAmount: ""
+      },
+      aIndex: 3,
+      search: {
+        pageNumber: 1,
+        pageSize: 10
+      },
+      loanRecordDTO: {
+        applicationId: "",
+        status: "",
+        productName: "",
+        applicationAmount: "",
+        repayWay: "",
+        repayTerms: "",
+        applicationTime: ""
+      },
+      pageTotal: 1,
+      accountLoansDatas: []
+    };
+  },
+  created() {
+    this.getLoanApplicationDetail();
+  },
+  methods: {
+    routerBack() {
+      this.$router.go(-1);
     },
-    data () {
-      return {
-        showMessageDialog: false,
-        isSuccess: false,
-        messageInfo: '',
-        showConfirmDialog: false,
-        showConfirmMessageDialog: false,
-        isConfirmSuccess: false,
-        confirmMessageInfo: '',
-        isDirect: false,
-        operateType: '',
-        currentRepayOrderId: '',
-        repayMentOrder: {
-          productName: '',
-          loanApplication: '',
-          interestDate: '',
-          planedRepayDate: '',
-          planedCapAmount: '',
-          planedIntAmount: '',
-          penaltyDays: '',
-          planedTotalPenalty: '',
-          defaultsFee: '',
-          planedTotalAmount: ''
-        },
-        aIndex: 3,
-        search: {
-          pageNumber:1,
-          pageSize: 10
-        },
-        loanRecordDTO: {
-          applicationId:'',
-          status:'',
-          productName:'',
-          applicationAmount:'',
-          repayWay:'',
-          repayTerms:'',
-          applicationTime:''
-        },
-        pageTotal: 1,
-        accountLoansDatas: []
+    handleRepayment() {
+      if (this.operateType === "now") {
+        this.handleRepaymentNow();
+      } else {
+        this.handleRepaymentEarly();
       }
     },
-    created(){
+    handleRepaymentEarly() {
+      if (this.$route.params.id && this.$route.params.id !== "") {
+        const _params = {
+          loanApplication: this.$route.params.id
+        };
+        api.postEarlyRepayment(_params).then(
+          res => {
+            if (res.data.code === 200) {
+              this.showConfirmMessageDialog = true;
+              this.isConfirmSuccess = true;
+              this.confirmMessageInfo = "恭喜你，还款成功！";
+              this.isDirect = true;
+            } else {
+              this.showMessageDialog = true;
+              this.isSuccess = false;
+              this.messageInfo = "还款失败！";
+            }
+          },
+          response => {
+            this.showMessageDialog = true;
+            this.isSuccess = false;
+            this.messageInfo = response.data.message;
+          }
+        );
+      }
+    },
+    handleRepaymentNow() {
+      const repayOrderId =
+        this.currentRepayOrderId && this.currentRepayOrderId !== ""
+          ? this.currentRepayOrderId
+          : "";
+      if (repayOrderId && repayOrderId !== "") {
+        api.putNowRepayment(repayOrderId).then(
+          res => {
+            if (res.data.code === 200) {
+              this.showConfirmMessageDialog = true;
+              this.isConfirmSuccess = true;
+              this.confirmMessageInfo = "恭喜你，还款成功！";
+              this.isDirect = true;
+            } else {
+              this.showMessageDialog = true;
+              this.isSuccess = false;
+              this.messageInfo = "还款失败！";
+            }
+          },
+          response => {
+            this.showMessageDialog = true;
+            this.isSuccess = false;
+            this.messageInfo = response.data.message;
+          }
+        );
+      }
+    },
+    handleSuccessRedirect() {
+      this.showConfirmDialog = false;
       this.getLoanApplicationDetail();
+      this.handleCloseDirectDialog();
     },
-    methods: {
-      routerBack(){
-        this.$router.go(-1);
-      },
-      handleRepayment(){
-        if(this.operateType === 'now'){
-          this.handleRepaymentNow()
-        }else{
-          this.handleRepaymentEarly();
-        }
-      },
-      handleRepaymentEarly(){
-        if(this.$route.params.id && this.$route.params.id !== ''){
-          const _params = {
-            loanApplication: this.$route.params.id
-          }
-          api.postEarlyRepayment(_params).then(res => {
-            if(res.data.code === 200) {
-              this.showConfirmMessageDialog = true;
-              this.isConfirmSuccess = true;
-              this.confirmMessageInfo = '恭喜你，还款成功！';
-              this.isDirect = true;
-            }else{
-              this.showMessageDialog = true;
-              this.isSuccess = false;
-              this.messageInfo = '还款失败！'
-            }
-          },response => {
-            this.showMessageDialog = true;
-            this.isSuccess = false;
-            this.messageInfo =  response.data.message;
-          })
-        }
-
-      },
-      handleRepaymentNow(){
-        const repayOrderId = this.currentRepayOrderId && this.currentRepayOrderId !== '' ? this.currentRepayOrderId : '';
-        if(repayOrderId && repayOrderId !== ''){
-          api.putNowRepayment(repayOrderId).then(res => {
-            if(res.data.code === 200){
-              this.showConfirmMessageDialog = true;
-              this.isConfirmSuccess = true;
-              this.confirmMessageInfo = '恭喜你，还款成功！';
-              this.isDirect = true;
-            }else{
-              this.showMessageDialog = true;
-              this.isSuccess = false;
-              this.messageInfo = '还款失败！'
-            }
-          },response => {
-            this.showMessageDialog = true;
-            this.isSuccess = false;
-            this.messageInfo =  response.data.message;
-          })
-        }
-      },
-      handleSuccessRedirect(){
-        this.showConfirmDialog = false;
-        this.getLoanApplicationDetail();
-        this.handleCloseDirectDialog();
-      },
-      handleCloseDirectDialog(){
-        this.showConfirmMessageDialog = false;
-        this.isConfirmSuccess = false;
-        this.confirmMessageInfo = '';
-        this.isDirect = false;
-      },
-      getEarlyRepaymentOrderInfo(){
-        this.operateType = 'early';
-        const loanApplication = this.loanRecordDTO ? this.loanRecordDTO.applicationId : '';
-        if(loanApplication && loanApplication !== ''){
-          const _param = {
-            loanApplication: loanApplication
-          };
-          api.getEarlyRepaymentOrder(_param).then(res => {
-            if(res.data.code === 200) {
+    handleCloseDirectDialog() {
+      this.showConfirmMessageDialog = false;
+      this.isConfirmSuccess = false;
+      this.confirmMessageInfo = "";
+      this.isDirect = false;
+    },
+    getEarlyRepaymentOrderInfo() {
+      this.operateType = "early";
+      const loanApplication = this.loanRecordDTO
+        ? this.loanRecordDTO.applicationId
+        : "";
+      if (loanApplication && loanApplication !== "") {
+        const _param = {
+          loanApplication: loanApplication
+        };
+        api.getEarlyRepaymentOrder(_param).then(
+          res => {
+            if (res.data.code === 200) {
               this.repayMentOrder = res.data.body ? res.data.body : {};
               this.showConfirmDialog = true;
-            }else{
+            } else {
               this.showMessageDialog = true;
               this.isSuccess = false;
-              this.messageInfo = '';
+              this.messageInfo = "";
             }
-          }, response => {
+          },
+          response => {
             this.showMessageDialog = true;
             this.isSuccess = false;
             this.messageInfo = response.data.message;
-          });
-        }else {
-          this.showMessageDialog = true;
-          this.isSuccess = false;
-          this.messageInfo = '下一期还款账单id不能为空';
-        }
-      },
-      getNowRepaymentOrderInfo(row){
-        this.operateType = 'now';
-        this.currentRepayOrderId = row.id;
-        if(row.id  && row.id  !== '' ){
-          api.getNowRepaymentOrder(row.id).then(res => {
-            if(res.data.code === 200) {
-              this.repayMentOrder = res.data.body ? res.data.body : {};
-              this.showConfirmDialog = true;
-            }else{
-              this.showMessageDialog = true;
-              this.isSuccess = false;
-              this.messageInfo = '';
-            }
-          }, response => {
-            this.showMessageDialog = true;
-            this.isSuccess = false;
-            this.messageInfo = response.data.message;
-          })
-        }else {
-          this.showMessageDialog = true;
-          this.isSuccess = false;
-          this.messageInfo = '还款Id不能为空';
-        }
-      },
-      getLoanApplicationDetail(){
-        //获取所有借款单条详情的方法
-        const applicationId = this.$route.params.id;
-        api.getLoanApplicationDetail(applicationId).then(res => {
-          if(res.data.code === 200) {
-            this.loanRecordDTO = res.data.body.loanRecordDTO ? res.data.body.loanRecordDTO : {};
-            this.accountLoansDatas = res.data.body.repayOrderDTOList ? res.data.body.repayOrderDTOList : [];
           }
-        })
-      },
-      handleCloseDialog(){
-        this.showMessageDialog = false;
+        );
+      } else {
+        this.showMessageDialog = true;
         this.isSuccess = false;
-        this.messageInfo = '';
+        this.messageInfo = "下一期还款账单id不能为空";
       }
+    },
+    getNowRepaymentOrderInfo(row) {
+      this.operateType = "now";
+      this.currentRepayOrderId = row.id;
+      if (row.id && row.id !== "") {
+        api.getNowRepaymentOrder(row.id).then(
+          res => {
+            if (res.data.code === 200) {
+              this.repayMentOrder = res.data.body ? res.data.body : {};
+              this.showConfirmDialog = true;
+            } else {
+              this.showMessageDialog = true;
+              this.isSuccess = false;
+              this.messageInfo = "";
+            }
+          },
+          response => {
+            this.showMessageDialog = true;
+            this.isSuccess = false;
+            this.messageInfo = response.data.message;
+          }
+        );
+      } else {
+        this.showMessageDialog = true;
+        this.isSuccess = false;
+        this.messageInfo = "还款Id不能为空";
+      }
+    },
+    getLoanApplicationDetail() {
+      //获取所有借款单条详情的方法
+      const applicationId = this.$route.params.id;
+      api.getLoanApplicationDetail(applicationId).then(res => {
+        if (res.data.code === 200) {
+          this.loanRecordDTO = res.data.body.loanRecordDTO
+            ? res.data.body.loanRecordDTO
+            : {};
+          this.accountLoansDatas = res.data.body.repayOrderDTOList
+            ? res.data.body.repayOrderDTOList
+            : [];
+        }
+      });
+    },
+    handleCloseDialog() {
+      this.showMessageDialog = false;
+      this.isSuccess = false;
+      this.messageInfo = "";
     }
   }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .mr-loan-detail {
   margin-top: -10px;
-  .inner{
+  .inner {
     .loan-number {
       line-height: 50px;
       padding-left: 50px;
@@ -279,10 +299,10 @@
     .loan-info {
       padding: 0 30px 20px 30px;
       border-bottom: 1px solid #ebeef5;
-      >div {
+      > div {
         width: 33%;
         text-align: center;
-        border-right:1px solid #ebeef5;
+        border-right: 1px solid #ebeef5;
         color: #999;
         .loan-info-name {
           color: #ff8b01;
@@ -290,9 +310,8 @@
           line-height: 40px;
         }
       }
-      >div:last-child {
+      > div:last-child {
         border-right: none;
-
       }
     }
     .loan-terms {
@@ -301,7 +320,7 @@
     .loan-button {
       width: 130px;
       padding: 0 30px;
-      line-height:40px;
+      line-height: 40px;
       border-radius: 20px;
       margin: 0 auto 50px auto;
     }

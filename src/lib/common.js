@@ -1,5 +1,5 @@
-const devUrl = 'http://mijin.fengdai.org/';
-const Url = 'http://www.360mijin.com/';
+const devUrl = 'https://mijin.fengdai.org/';
+const Url = 'https://www.360mijin.com/';
 let _locationhref = window.location.href;
 const localURL = _locationhref.substring(0,_locationhref.indexOf("#"));
 
